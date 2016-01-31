@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.grubquest.grubquest_android.Models.User;
 
 public class LoginActivity extends AppCompatActivity {
     @Override
@@ -34,13 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = username.getText().toString();
-                String pass = password.getText().toString();
+                final String email = username.getText().toString();
+                final String pass = password.getText().toString();
 
                 firebase.authWithPassword(email, pass, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        //send to next activity with AuthData in Bundle
+                        //save user to users schema in firebase
+                        firebase.child("users").child(authData.getUid()).setValue(new User(email));
                         Intent next = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(next);
                     }
