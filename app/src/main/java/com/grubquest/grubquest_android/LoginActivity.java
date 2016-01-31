@@ -21,6 +21,12 @@ public class LoginActivity extends AppCompatActivity {
 
         final Firebase firebase = new Firebase(GQConstants.DATABASE);
 
+        //automatically goes to HomeActivity if signed in before
+        if (firebase.getAuth() != null) {
+            Intent next = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(next);
+        }
+
         final Button login_button = (Button) findViewById(R.id.login_button);
         final EditText password = (EditText) findViewById(R.id.password_edittext);
         final EditText username = (EditText) findViewById(R.id.username_edittext);
