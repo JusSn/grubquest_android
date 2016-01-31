@@ -14,10 +14,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button login_button;
-    private EditText password;
-    private EditText username;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,30 +21,16 @@ public class LoginActivity extends AppCompatActivity {
 
         final Firebase firebase = new Firebase(GQConstants.DATABASE);
 
-        login_button = (Button) findViewById(R.id.login_button);
-        password = (EditText) findViewById(R.id.password_edittext);
-        username = (EditText) findViewById(R.id.username_edittext);
-
-        final String email = username.getText().toString();
-        final String pass = password.getText().toString();
-
-        firebase.createUser("cuche@purdue.edu", "chukwudi", new Firebase.ResultHandler() {
-            @Override
-            public void onSuccess() {
-                System.out.println("Yes");
-            }
-
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                System.out.println(firebaseError.getDetails());
-                System.out.println(firebaseError.getMessage());
-                System.out.println("No");
-            }
-        });
+        final Button login_button = (Button) findViewById(R.id.login_button);
+        final EditText password = (EditText) findViewById(R.id.password_edittext);
+        final EditText username = (EditText) findViewById(R.id.username_edittext);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = username.getText().toString();
+                String pass = password.getText().toString();
+
                 firebase.authWithPassword(email, pass, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
