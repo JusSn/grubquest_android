@@ -1,0 +1,23 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    tools:context="com.grubquest.grubquest_android.Quest_Loot_Button_Bar_Fragment">
+
+    <Button
+        android:id="@+id/loot_button"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="@string/loot"/>
+
+    <Button
+        android:id="@+id/quests_button"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="@string/quest"/>
+</LinearLayout>
