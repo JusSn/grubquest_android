@@ -4,10 +4,28 @@
     android:layout_width="match_parent"
     tools:context=".LootFragment">
 
+<<<<<<< 76139ffc062aa28bbeb1597960279bdd259b1b85
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lootRecyclerView"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"/>
+=======
+    <!--
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/list_view_goes_here"/>
+    -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/loot_recycler_view"
+        android:foregroundGravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:scrollbars="vertical" />
+>>>>>>> Not 100% sure this will work
 </RelativeLayout>
