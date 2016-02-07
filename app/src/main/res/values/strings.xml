@@ -8,4 +8,13 @@
     <string name="text_Login">Login</string>
     <string name="text_Username">Username</string>
     <string name="text_Password">Password</string>
+
+    <!-- strings for coupon layout !-->
+    <string name="test_OFF">$test OFF</string>
+    <string name="test_offer">Test_Offer</string>
+    <string name="test_rest">Test_Restaurant</string>
+    <string name="expires_in">Expires in:</string>
+    <string name="view_reward">View Reward</string>
+    <string name="cancel">Cancel</string>
+    <string name="test_time">00:00:00</string>
 </resources>
