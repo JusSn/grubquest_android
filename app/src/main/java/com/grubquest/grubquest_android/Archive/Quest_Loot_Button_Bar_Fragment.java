@@ -13,8 +13,9 @@ public class Quest_Loot_Button_Bar_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_quest__loot__button__bar, container, false);
+        //View view = inflater.inflate(R.layout.fragment_quest__loot__button__bar, container, false);
 
+        /*
         Button loot_button = (Button) view.findViewById(R.id.loot_button);
         Button quest_button = (Button) view.findViewById(R.id.quests_button);
 
@@ -40,8 +41,9 @@ public class Quest_Loot_Button_Bar_Fragment extends Fragment {
                 ftr.commit();
             }
         });
+        */
 
-        return view;
+        return null;
     }
 }
 

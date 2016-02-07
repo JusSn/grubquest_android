@@ -1,7 +1,11 @@
 package com.grubquest.grubquest_android;
 
+import android.app.TabActivity;
+import android.content.Intent;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TabHost;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -9,6 +13,14 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        FragmentTabHost tabHost = (FragmentTabHost)findViewById(R.id.app_tabhost);
+        tabHost.setup(this, getSupportFragmentManager(), R.id.tab_content);
+
+        tabHost.addTab(tabHost.newTabSpec("Loot").setIndicator("Loot"),
+                LootFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("Quests"),
+                QuestsFragment.class, null);
 
         /**
          * Was used to test user login, can resurrect if issues
@@ -20,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         if (firebase.getAuth() != null) {
             view.setText("Logged In");
         } else view.setText("Not logged in");
-        */
+
 
         //add button view to this
         getSupportFragmentManager().beginTransaction()
@@ -32,5 +44,6 @@ public class HomeActivity extends AppCompatActivity {
                 .add(R.id.home_activity_content_container, new LootFragment(), "LOOT_FRAGMENT")
                 .commit();
 
+         */
     }
 }
