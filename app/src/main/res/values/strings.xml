@@ -18,5 +18,7 @@
     <string name="cancel">Cancel</string>
     <string name="test_time">00:00:00</string>
 
+    <string name="coupon_info_test">Testing coupon info! ASDF ASDF ASDF ASDF ASDF ASDF \nWow!</string>
+
     <string name="expire_warning">Coupons will disappear 15 minutes after you hit claim!</string>
 </resources>
