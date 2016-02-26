@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">Grubquest_Android</string>
+    <string name="grubquest_logo">The Grubquest Logo</string>
+    <string name="invalid_user_pass">Invalid username/password combination</string>
     <string name="list_view_goes_here">List View Goes Here</string>
     <string name="loot">Loot</string>
     <string name="quest">Quest</string>
     <string name="quest_fragment_apology">Quests to Come In Future Updates</string>
+    <string name="seperator">Seperator</string>
     <string name="username">Username</string>
     <string name="text_Login">Login</string>
     <string name="text_Username">Username</string>
     <string name="text_Password">Password</string>
+    <string name="warning">Warning</string>
+
 
     <!-- strings for coupon layout !-->
     <string name="test_OFF">$test OFF</string>
