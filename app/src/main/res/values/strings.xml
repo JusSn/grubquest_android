@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Grubquest_Android</string>
+    <string name="empty_default">Hello\nYou are a fool</string>
+    <string name="empty_loot_text">You don't have any loot right now!\n
+        Head over to grubquest.gg to pick up some new quests\n
+        or finish your current quests!</string>
+    <string name="empty_quests_text">You haven't accepted any quests yet!\n
+        Go to grubquest.gg to get started!</string>
     <string name="grubquest_logo">The Grubquest Logo</string>
     <string name="invalid_user_pass">Invalid username/password combination</string>
     <string name="list_view_goes_here">List View Goes Here</string>

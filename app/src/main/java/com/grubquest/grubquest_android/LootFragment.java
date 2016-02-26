@@ -34,9 +34,7 @@ public class LootFragment extends Fragment {
          * get data from Firebase. One object that contains all coupons available to the user. Pass into adapter by constructor
          */
         couponAdapter = new LootRecyclerAdapter(getActivity());
-
         lootRecyclerView.setAdapter(couponAdapter);
-
         lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
