@@ -74,8 +74,10 @@ public class LootRecyclerAdapter extends RecyclerView.Adapter<LootRecyclerAdapte
             new CountDownTimer(3000000, 1000) { // adjust the milli seconds here depending on coupon expiration time
 
                 public void onTick(long millisUntilFinished) {
-                    coupon_timer.setText(String.format("%d min, %d sec",
-                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    coupon_timer.setText(String.format("%d:%d:%d",
+                            TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.SECONDS.toHours(millisUntilFinished)),
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
                 }
