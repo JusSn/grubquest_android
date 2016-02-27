@@ -2,9 +2,17 @@ package com.grubquest.grubquest_android;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 public class HomeActivity extends AppCompatActivity {
@@ -22,28 +30,27 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("Quests"),
                 QuestsFragment.class, null);
 
-        /**
-         * Was used to test user login, can resurrect if issues
-         *
-        Firebase firebase = new Firebase(GQConstants.DATABASE);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
+        ListView lv = (ListView) drawer.findViewById(R.id.nav_list_views);
+        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item,
+                getResources().getStringArray(R.array.nav_array)));
+        lv.setOnItemClickListener(new DrawerItemClickListener());
+    }
 
-        TextView view = (TextView) findViewById(R.id.check_login_textview);
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
 
-        if (firebase.getAuth() != null) {
-            view.setText("Logged In");
-        } else view.setText("Not logged in");
-
-
-        //add button view to this
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.home_activity_top_button_bar_container,
-                        new Quest_Loot_Button_Bar_Fragment()).commit();
-
-        //add loot content view to it
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.home_activity_content_container, new LootFragment(), "LOOT_FRAGMENT")
-                .commit();
-
-         */
+    private void selectItem(int position) {
+        if (position == 1) {
+            Fragment fragment = new SettingsFragment();
+        } else {
+            //log out
+            //clear backstack
+            //go to home page
+        }
     }
 }

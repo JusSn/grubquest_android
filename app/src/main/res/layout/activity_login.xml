@@ -89,6 +89,7 @@
         android:layout_width="wrap_content">
         <EditText
             android:id="@+id/username_edittext"
+            android:background="@android:color/transparent"
             android:hint="@string/text_Username"
             android:fontFamily="android:roboto_thin"
             android:layout_centerHorizontal="true"
@@ -99,6 +100,7 @@
 
         <EditText
             android:id="@+id/password_edittext"
+            android:background="@android:color/transparent"
             android:fontFamily="android:roboto_thin"
             android:hint="@string/text_Password"
             android:inputType="textPassword"
