@@ -2,20 +2,41 @@ package com.grubquest.grubquest_android;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
+import com.grubquest.grubquest_android.Models.NavDrawerItem;
+
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
+    private ActionBarDrawerToggle drawerToggle;
+    private ArrayList<NavDrawerItem> navDrawerItems;
+    private DrawerLayout drawer;
+    private ListView drawerList;
+    private NavDrawerListAdapter adapter;
+    private String appTitle;
+    private String drawerTitle;
+    private String[] navMenuOptions;
+    // uncomment when we have designs
+    // private TypedArray navMenuIcons;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +51,40 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("Quests"),
                 QuestsFragment.class, null);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
-        ListView lv = (ListView) drawer.findViewById(R.id.nav_list_views);
-        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item,
-                getResources().getStringArray(R.array.nav_array)));
-        lv.setOnItemClickListener(new DrawerItemClickListener());
-    }
+        /** Nav Drawer Stuff **/
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
+        navMenuOptions = getResources().getStringArray(R.array.nav_array);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.list_slider_menu);
+        navDrawerItems = new ArrayList<>();
 
-    private void selectItem(int position) {
-        if (position == 1) {
-            Fragment fragment = new SettingsFragment();
-        } else {
-            //log out
-            //clear backstack
-            //go to home page
+        for (String option : navMenuOptions) {
+            navDrawerItems.add(new NavDrawerItem(option, R.drawable.warning));
         }
+
+        adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
+        drawerList.setAdapter(adapter);
+
+        /** This is if we add actual button to move
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        drawerToggle = new ActionBarDrawerToggle(this, drawer,
+                R.drawable.ic_menu_camera, //nav menu toggle icon
+                R.string.app_name, // nav drawer open - description for accessibility
+                R.string.app_name // nav drawer close - description for accessibility
+        ){
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle("Hello");
+                // calling onPrepareOptionsMenu() to show action bar icons
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle("Hello");
+                // calling onPrepareOptionsMenu() to hide action bar icons
+                invalidateOptionsMenu();
+            }
+        };
+        **/
     }
 }
