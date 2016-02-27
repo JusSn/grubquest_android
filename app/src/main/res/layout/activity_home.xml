@@ -23,16 +23,24 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
+    <!--
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent">
+
+
+
+    </RelativeLayout>
+    -->
     <ListView
         android:id="@+id/list_slider_menu"
-        android:background="@color/black"
+        android:background="@color/grayDark"
         android:choiceMode="singleChoice"
-        android:divider="@color/grayDark"
-        android:dividerHeight="1dp"
-        android:listSelector="@color/grayLight"
+        android:divider="@color/black"
+        android:dividerHeight="2dp"
+        android:listSelector="@color/grayDark"
         android:layout_gravity="start"
         android:layout_height="match_parent"
         android:layout_width="240dp">
-
     </ListView>
 </android.support.v4.widget.DrawerLayout>

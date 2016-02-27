@@ -1,24 +1,15 @@
 package com.grubquest.grubquest_android;
 
-import android.app.TabActivity;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TabHost;
+import android.widget.RelativeLayout;
 
 import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
 import com.grubquest.grubquest_android.Models.NavDrawerItem;
@@ -43,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        FragmentTabHost tabHost = (FragmentTabHost)findViewById(R.id.app_tabhost);
+        FragmentTabHost tabHost = (FragmentTabHost) findViewById(R.id.app_tabhost);
         tabHost.setup(this, getSupportFragmentManager(), R.id.tab_content);
 
         tabHost.addTab(tabHost.newTabSpec("Loot").setIndicator("Loot"),
@@ -64,27 +55,27 @@ public class HomeActivity extends AppCompatActivity {
 
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         drawerList.setAdapter(adapter);
+        drawerList.setOnItemClickListener(new SlideMenuClickListener());
+    }
 
-        /** This is if we add actual button to move
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        drawerToggle = new ActionBarDrawerToggle(this, drawer,
-                R.drawable.ic_menu_camera, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ){
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle("Hello");
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-            }
+    /** Helper Classes Methods **/
+    private class SlideMenuClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            process(position);
+        }
+    }
 
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("Hello");
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
-        **/
+    private void process(int position) {
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                /** this means logout **/
+                //logout
+                break;
+        }
     }
 }

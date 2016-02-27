@@ -14,7 +14,4 @@ public class NavDrawerItem {
 
     public int getIcon(){ return this.icon; }
     public String getName(){ return this.name; }
-    public void setIcon(int icon){ this.icon = icon; }
-    public void setTitle(String name){ this.name = name; }
-
 }
