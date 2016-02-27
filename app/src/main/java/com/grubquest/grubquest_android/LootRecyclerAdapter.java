@@ -1,11 +1,15 @@
 package com.grubquest.grubquest_android;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -43,9 +47,12 @@ public class LootRecyclerAdapter extends RecyclerView.Adapter<LootRecyclerAdapte
 
     public static class CouponViewHolder extends RecyclerView.ViewHolder {
         //variables for coupon layout
-        public TextView company_text, offer_small_text, offer_info;
-        public ImageView company_image, company_icon,icon1_image, icon2_image;
+        public final TextView company_text, offer_small_text, offer_info;
+        public final ImageView company_image, company_icon,icon1_image, icon2_image;
+        public LinearLayout offer_text_layout;
         String image_id;
+
+        private boolean expanded = false;
 
         public CouponViewHolder(View dataView) {
             super(dataView);
@@ -59,9 +66,33 @@ public class LootRecyclerAdapter extends RecyclerView.Adapter<LootRecyclerAdapte
             icon1_image = (ImageView) dataView.findViewById(R.id.type_icon_1);
             icon2_image = (ImageView) dataView.findViewById(R.id.type_icon_2);
 
+            offer_text_layout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
+            offer_text_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!expanded) {
+                        expanded = true;
+                        ViewGroup.LayoutParams params = offer_info.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        offer_info.setLayoutParams(params);
+                    }
+                    else {
+                        offer_info.performClick();
+                        expanded = false;
+                    }
+                }
+            });
+
+            offer_info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewGroup.LayoutParams params = offer_info.getLayoutParams();
+                    params.height = 0;
+                    offer_info.setLayoutParams(params);
+                }
+            });
         }
-
     }
 
 }
