@@ -8,5 +8,6 @@
     <color name="grayLight">#ffcccccc</color>
     <color name="themePink">#FFF6F6</color>
     <color name="themeRed">#DB2A30</color>
+    <color name="darkRed">#8c191d</color>
     <color name="white">#ffffff</color>
 </resources>
