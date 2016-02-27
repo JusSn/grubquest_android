@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button login_button = (Button) findViewById(R.id.login_button);
         final EditText password = (EditText) findViewById(R.id.password_edittext);
         final EditText username = (EditText) findViewById(R.id.username_edittext);
+        final RelativeLayout incorrect = (RelativeLayout) findViewById(R.id.invalid_username_pass);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onAuthenticationError(FirebaseError firebaseError) {
                         Log.d("GrubQuest", firebaseError.getMessage());
                         Log.d("GrubQuest", firebaseError.getDetails());
-                        Toast.makeText(LoginActivity.this, "Something fucked up", Toast.LENGTH_LONG)
-                                .show();
+                        incorrect.setVisibility(View.VISIBLE);
                     }
                 });
             }

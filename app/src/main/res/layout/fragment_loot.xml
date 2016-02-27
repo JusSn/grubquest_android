@@ -5,9 +5,9 @@
     tools:context=".LootFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lootRecyclerView"
-        android:scrollbars="vertical"
+        android:id="@+id/loot_recycler_view"
+        android:foregroundGravity="center_horizontal"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_horizontal"/>
+        android:scrollbars="vertical" />
 </RelativeLayout>
