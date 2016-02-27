@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText username = (EditText) findViewById(R.id.username_edittext);
         final RelativeLayout incorrect = (RelativeLayout) findViewById(R.id.invalid_username_pass);
 
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

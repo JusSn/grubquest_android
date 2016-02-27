@@ -2,6 +2,7 @@ package com.grubquest.grubquest_android;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Justin on 2/24/16.
@@ -47,7 +50,7 @@ public class LootRecyclerAdapter extends RecyclerView.Adapter<LootRecyclerAdapte
 
     public static class CouponViewHolder extends RecyclerView.ViewHolder {
         //variables for coupon layout
-        public final TextView company_text, offer_small_text, offer_info;
+        public final TextView company_text, offer_small_text, offer_info, coupon_timer;
         public final ImageView company_image, company_icon,icon1_image, icon2_image;
         public LinearLayout offer_text_layout;
         String image_id;
@@ -59,12 +62,28 @@ public class LootRecyclerAdapter extends RecyclerView.Adapter<LootRecyclerAdapte
             company_text = (TextView) dataView.findViewById(R.id.restaurant_textview);
             offer_small_text = (TextView) dataView.findViewById(R.id.offer_textview);
 
+            coupon_timer = (TextView) dataView.findViewById(R.id.time_remain_textview);
+
             offer_info = (TextView) dataView.findViewById(R.id.coupon_info_text);
 
             company_image = (ImageView) dataView.findViewById(R.id.restaurant_image);
             company_icon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
             icon1_image = (ImageView) dataView.findViewById(R.id.type_icon_1);
             icon2_image = (ImageView) dataView.findViewById(R.id.type_icon_2);
+
+            new CountDownTimer(3000000, 1000) { // adjust the milli seconds here depending on coupon expiration time
+
+                public void onTick(long millisUntilFinished) {
+                    coupon_timer.setText(String.format("%d min, %d sec",
+                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                }
+
+                public void onFinish() {
+                    coupon_timer.setText("EXPIRED");
+                }
+            }.start();
 
             offer_text_layout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
