@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.firebase.client.Firebase;
 import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
+import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -59,12 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         **/
     }
 
-    @Override
-    public void onStart() { super.onStart(); }
-
-    @Override
-    public void onStop() { super.onStop(); }
-    
     private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -81,8 +77,13 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             default:
                 /** this means logout **/
-                //logout
-                break;
+                Firebase ref = new Firebase(GQConstants.DATABASE);
+                ref.unauth();
+                Intent exit_intent = new Intent(this, LoginActivity.class);
+                exit_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                exit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(exit_intent);
+                finish();
         }
     }
 }

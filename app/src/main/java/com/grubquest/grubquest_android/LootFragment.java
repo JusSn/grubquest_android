@@ -12,32 +12,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.grubquest.grubquest_android.Adapters.LootRecyclerAdapter;
+import com.grubquest.grubquest_android.Models.FirebaseCoupon;
+
+import java.util.ArrayList;
 
 public class LootFragment extends Fragment {
-    private RecyclerView lootRecyclerView;
-    private RecyclerView.Adapter couponAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_loot, container, false);
+        View view;
+        ArrayList<FirebaseCoupon> coupons = new ArrayList<>();
 
-        // CouponAdapter ca = new CouponAdapter();
-        // loot_list.setAdapter(ca);
+        //get coupons from Firebase, port to FirebaseCouponModel
 
-        /**
-         *
-         * add Recycler View here wit Justin
-         */
-        lootRecyclerView = (RecyclerView) view.findViewById(R.id.loot_recycler_view);
-        /**
-         * get data from Firebase. One object that contains all coupons available to the user. Pass into adapter by constructor
-         */
-        couponAdapter = new LootRecyclerAdapter(getActivity());
-        lootRecyclerView.setAdapter(couponAdapter);
-        lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if (coupons.size() > 0) {
+            view = inflater.inflate(R.layout.fragment_loot, container, false);
+            RecyclerView lootRecyclerView =
+                    (RecyclerView) view.findViewById(R.id.loot_recycler_view);
+            RecyclerView.Adapter couponAdapter = new LootRecyclerAdapter(getActivity(), coupons);
+            lootRecyclerView.setAdapter(couponAdapter);
+            lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        } else {
+            view = inflater.inflate(R.layout.empty_recycler_view_fragment, container, false);
+            //ImageView empty_image = (ImageView) view.findViewById(R.id.empty_quest_image);
+            TextView empty_text = (TextView) view.findViewById(R.id.empty_screen_text_view);
+            empty_text.setText(getResources().getString(R.string.empty_loot_text));
+        }
 
         return view;
     }
-
 }

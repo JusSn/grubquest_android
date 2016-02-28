@@ -18,6 +18,7 @@
 
     <TextView
         android:id="@+id/empty_screen_text_view"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/empty_quest_image"
         android:layout_height="wrap_content"

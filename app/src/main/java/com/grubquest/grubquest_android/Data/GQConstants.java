@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android;
+package com.grubquest.grubquest_android.Data;
 
 /**
  * Created by Derek on 1/30/2016.

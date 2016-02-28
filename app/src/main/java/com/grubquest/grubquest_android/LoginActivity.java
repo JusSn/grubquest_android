@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.User;
 
 public class LoginActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android;
+package com.grubquest.grubquest_android.Application;
 
 import android.app.Application;
 

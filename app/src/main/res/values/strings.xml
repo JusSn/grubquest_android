@@ -2,14 +2,16 @@
     <string name="app_name">Grubquest_Android</string>
     <string name="empty_default">Hello\nYou are a fool</string>
     <string name="empty_loot_text">You don\'t have any loot right now!\n
-        Head over to grubquest.gg to pick up some new quests\n
-        or finish your current quests!</string>
+        Head over to grubquest.gg to pick up some \n
+        new quests or finish your current quests!</string>
     <string name="empty_quests_text">You haven\'t accepted any quests yet!\n
         Go to grubquest.gg to get started!</string>
+    <string name="expired">EXPIRED</string>
     <string name="grubquest_logo">The Grubquest Logo</string>
     <string name="karmicdemon">KarmicDemon</string>
     <string name="invalid_user_pass">Invalid username/password combination</string>
     <string name="list_view_goes_here">List View Goes Here</string>
+    <string name="login_error">Invalid username/password combination</string>
     <string name="loot">Loot</string>
     <string name="loot_notifications">Loot Notifications</string>
     <string name="nothing">Nothing to see here</string>
@@ -22,27 +24,20 @@
     <string name="text_Password">Password</string>
     <string name="warning">Warning</string>
 
-    <string name="login_error">Invalid username/password combination</string>
-
-
     <!-- strings for coupon layout !-->
-    <string name="test_OFF">$test OFF</string>
+    <string name="cancel">Cancel</string>
+    <string name="coupon_info_test">Testing coupon info! ASDF ASDF ASDF ASDF ASDF ASDF \nWow!</string>
+    <string name="expires_in">Expires in:</string>
+    <string name="expire_warning">Coupons will disappear 15 minutes after you hit claim!</string>
     <string name="test_offer">Test_Offer</string>
     <string name="test_rest">Test_Restaurant</string>
-    <string name="expires_in">Expires in:</string>
-    <string name="view_reward">View Reward</string>
-    <string name="cancel">Cancel</string>
     <string name="test_time">00:00:00</string>
+    <string name="test_OFF">$test OFF</string>
+    <string name="view_reward">View Reward</string>
 
-    <string name="coupon_info_test">Testing coupon info! ASDF ASDF ASDF ASDF ASDF ASDF \nWow!</string>
-
-    <string name="expire_warning">Coupons will disappear 15 minutes after you hit claim!</string>
-
+    <!--arrays-->
     <string-array name="nav_array">
         <item>Settings</item>
         <item>Log Out</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
