@@ -3,13 +3,12 @@ package com.grubquest.grubquest_android;
 import android.content.Intent;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
 import com.grubquest.grubquest_android.Models.NavDrawerItem;
@@ -17,18 +16,11 @@ import com.grubquest.grubquest_android.Models.NavDrawerItem;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
-    private ActionBarDrawerToggle drawerToggle;
-    private ArrayList<NavDrawerItem> navDrawerItems;
     private DrawerLayout drawer;
-    private ListView drawerList;
-    private NavDrawerListAdapter adapter;
-    private String appTitle;
-    private String drawerTitle;
-    private String[] navMenuOptions;
+    private LinearLayout drawerRel;
+
     // uncomment when we have designs
     // private TypedArray navMenuIcons;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,18 +36,22 @@ public class HomeActivity extends AppCompatActivity {
 
         /** Nav Drawer Stuff **/
 
-        navMenuOptions = getResources().getStringArray(R.array.nav_array);
+        String[] navMenuOptions = getResources().getStringArray(R.array.nav_array);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.list_slider_menu);
-        navDrawerItems = new ArrayList<>();
+        drawerRel = (LinearLayout) findViewById(R.id.fuckme);
+        ListView drawerList = (ListView) findViewById(R.id.list_slider_menu);
+        ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
 
         for (String option : navMenuOptions) {
             navDrawerItems.add(new NavDrawerItem(option, R.drawable.warning));
         }
 
-        adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
+        NavDrawerListAdapter adapter =
+                new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         drawerList.setAdapter(adapter);
         drawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+        /* set image in drawer to something */
     }
 
     /** Helper Classes Methods **/
@@ -63,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             process(position);
+            drawer.closeDrawer(drawerRel);
         }
     }
 
