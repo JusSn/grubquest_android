@@ -18,9 +18,8 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private LinearLayout drawerRel;
-
-    // uncomment when we have designs
     // private TypedArray navMenuIcons;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +50,21 @@ public class HomeActivity extends AppCompatActivity {
         drawerList.setAdapter(adapter);
         drawerList.setOnItemClickListener(new SlideMenuClickListener());
 
-        /* set image in drawer to something */
+        /** set image in drawer to something
+        ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
+        profile.setImageBitmap();
+
+        TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
+        profile_name.setText();
+        **/
     }
 
-    /** Helper Classes Methods **/
+    @Override
+    public void onStart() { super.onStart(); }
+
+    @Override
+    public void onStop() { super.onStop(); }
+    
     private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

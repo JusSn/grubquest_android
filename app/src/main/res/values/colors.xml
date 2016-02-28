@@ -4,10 +4,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="darkRed">#8c191d</color>
     <color name="grayDark">#ff444444</color>
     <color name="grayLight">#ffcccccc</color>
+    <color name="graySideBar">#26232D</color>
     <color name="themePink">#FFF6F6</color>
     <color name="themeRed">#DB2A30</color>
-    <color name="darkRed">#8c191d</color>
     <color name="white">#ffffff</color>
 </resources>
