@@ -14,8 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.grubquest.grubquest_android.Adapters.LootRecyclerAdapter;
-import com.grubquest.grubquest_android.Models.FirebaseCoupon;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.grubquest.grubquest_android.Adapters.CouponViewHolder;
+import com.grubquest.grubquest_android.Data.GQConstants;
+import com.grubquest.grubquest_android.Models.QuestCoupon;
 
 import java.util.ArrayList;
 
@@ -24,16 +30,46 @@ public class LootFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-        ArrayList<FirebaseCoupon> coupons = new ArrayList<>();
+        final Firebase couponRef = new Firebase("https://grubquest.firebaseio.com/quests/LeagueOfLegends/TestDuo/frontDescription");
 
         //get coupons from Firebase, port to FirebaseCouponModel
 
-        if (coupons.size() > 0) {
+        if (true) {
             view = inflater.inflate(R.layout.fragment_loot, container, false);
             RecyclerView lootRecyclerView =
                     (RecyclerView) view.findViewById(R.id.loot_recycler_view);
-            RecyclerView.Adapter couponAdapter = new LootRecyclerAdapter(getActivity(), coupons);
+
+            lootRecyclerView.setHasFixedSize(true);
+
+            RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, CouponViewHolder>(QuestCoupon.class, R.layout.layout_coupon, CouponViewHolder.class, couponRef) {
+                private LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+                @Override
+                protected void populateViewHolder(CouponViewHolder viewHolder, QuestCoupon model, int position) {
+                    viewHolder.company_text.setText(model.getName());
+                }
+
+                //
+//                @Override
+//                public CouponViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//                    View coupon_view = inflater.inflate(R.layout.layout_coupon, parent, false);
+//                    return new CouponViewHolder(coupon_view);
+//
+//                }
+//
+//                @Override
+//                public void onBindViewHolder(CouponViewHolder viewHolder, int position) {
+//                    viewHolder.company_text.setText("What the fuck why won't this work");
+//                }
+
+//                @Override
+//                public int getItemCount() {
+//                    return 1;
+//                }
+            };
+
             lootRecyclerView.setAdapter(couponAdapter);
+
             lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         } else {
             view = inflater.inflate(R.layout.empty_recycler_view_fragment, container, false);

@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.grubquest.grubquest_android.Adapters.LootRecyclerAdapter;
-import com.grubquest.grubquest_android.Adapters.QuestRecyclerAdapter;
+//import com.grubquest.grubquest_android.Adapters.QuestRecyclerAdapter;
 import com.grubquest.grubquest_android.Models.Quest;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class QuestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view;
         ArrayList<Quest> quests = new ArrayList<>();
-
+/*
         if (quests.size() > 0) {
             view = inflater.inflate(R.layout.fragment_quests, container, false);
             RecyclerView quest_recycler_view =
@@ -34,8 +33,8 @@ public class QuestsFragment extends Fragment {
             //ImageView empty_image = (ImageView) view.findViewById(R.id.empty_quest_image);
             TextView empty_text = (TextView) view.findViewById(R.id.empty_screen_text_view);
             empty_text.setText(getResources().getString(R.string.empty_loot_text));
-        }
+        }*/
 
-        return view;
+        return null;
     }
 }

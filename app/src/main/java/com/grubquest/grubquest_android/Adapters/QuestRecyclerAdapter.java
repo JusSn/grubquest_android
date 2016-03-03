@@ -15,6 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by Derek on 2/27/2016.
  */
+/*
 public class QuestRecyclerAdapter
         extends RecyclerView.Adapter<QuestRecyclerAdapter.QuestViewHolder> {
     ArrayList<Quest> quests;
@@ -47,4 +48,4 @@ public class QuestRecyclerAdapter
 
         }
     }
-}
+}*/

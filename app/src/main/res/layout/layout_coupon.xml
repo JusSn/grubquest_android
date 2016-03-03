@@ -137,40 +137,40 @@
         android:paddingBottom="30dp"
         android:theme="@style/AppTheme" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/button_layout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:weightSum="1"
-        android:padding="10dp"
-        android:gravity="center_vertical"
-        android:background="@color/grayLight">
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/button_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:weightSum="1"-->
+        <!--android:padding="10dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:background="@color/grayLight">-->
 
-        <Button
-            android:id="@+id/view_reward_button"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:text="@string/view_reward"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_weight="0.67"
-            android:background="@drawable/round_red_5"/>
+        <!--<Button-->
+            <!--android:id="@+id/view_reward_button"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text="@string/view_reward"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_weight="0.67"-->
+            <!--android:background="@drawable/round_red_5"/>-->
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.03" />
-        <Button
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:text="@string/cancel"
-            android:id="@+id/cancel_button"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_weight="0.3"
-            android:background="@drawable/round_red_5"
-            android:theme="@style/AppTheme" />
-        
-    </LinearLayout>
+        <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.03" />-->
+        <!--<Button-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text="@string/cancel"-->
+            <!--android:id="@+id/cancel_button"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_weight="0.3"-->
+            <!--android:background="@drawable/round_red_5"-->
+            <!--android:theme="@style/AppTheme" />-->
+        <!-- -->
+    <!--</LinearLayout>-->
 </LinearLayout>
