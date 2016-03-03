@@ -1,10 +1,10 @@
-//TODO: margins, background, padding for linear layout
-//TODO: coupon integration and display with Firebase
-//TODO: fix the darn buttons
-//TODO: on-tap card expansion, consider switching to android:Cardview?
+//TODO: Get the darn Firebase reference to display something to the view
+//TODO: Create a proper model(s) to hold Firebase reference
+//TODO: What the fuck is going on with onBindViewHolder() vs populateViewHoler()
 
 package com.grubquest.grubquest_android;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +40,8 @@ public class LootFragment extends Fragment {
                     (RecyclerView) view.findViewById(R.id.loot_recycler_view);
 
             lootRecyclerView.setHasFixedSize(true);
+            lootRecyclerView.setBackgroundColor(Color.LTGRAY);
+            lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, CouponViewHolder>(QuestCoupon.class, R.layout.layout_coupon, CouponViewHolder.class, couponRef) {
                 private LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -50,27 +52,25 @@ public class LootFragment extends Fragment {
                 }
 
                 //
-//                @Override
-//                public CouponViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//                    View coupon_view = inflater.inflate(R.layout.layout_coupon, parent, false);
-//                    return new CouponViewHolder(coupon_view);
-//
-//                }
-//
-//                @Override
-//                public void onBindViewHolder(CouponViewHolder viewHolder, int position) {
-//                    viewHolder.company_text.setText("What the fuck why won't this work");
-//                }
+                @Override
+                public CouponViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                    View coupon_view = inflater.inflate(R.layout.layout_coupon, parent, false);
+                    return new CouponViewHolder(coupon_view);
 
-//                @Override
-//                public int getItemCount() {
-//                    return 1;
-//                }
+                }
+
+                @Override
+                public void onBindViewHolder(CouponViewHolder viewHolder, int position) {
+
+                }
+
+                @Override
+                public int getItemCount() {
+                    return 5;
+                }
             };
 
             lootRecyclerView.setAdapter(couponAdapter);
-
-            lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         } else {
             view = inflater.inflate(R.layout.empty_recycler_view_fragment, container, false);
             //ImageView empty_image = (ImageView) view.findViewById(R.id.empty_quest_image);

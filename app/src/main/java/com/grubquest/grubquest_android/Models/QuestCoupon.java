@@ -38,6 +38,13 @@ public class QuestCoupon {
 
     public QuestCoupon() {}
 
+    public QuestCoupon(String address, String name, String street) {
+        this.address = address;
+        this.name = name;
+        this.street = street;
+
+    }
+
     public String getName() {
         return name;
     }
