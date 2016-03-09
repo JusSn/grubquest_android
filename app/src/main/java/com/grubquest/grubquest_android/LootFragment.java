@@ -1,6 +1,7 @@
 //TODO: Get the darn Firebase reference to display something to the view
 //TODO: Create a proper model(s) to hold Firebase reference
 //TODO: What the fuck is going on with onBindViewHolder() vs populateViewHoler()
+//TODO: Attempt to use quests to display something from Firebase to check server connection, at least?
 
 package com.grubquest.grubquest_android;
 

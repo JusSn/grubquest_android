@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical"
+    android:id="@+id/quest_layout">
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:id="@+id/quest_top_layout">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/grayDark"
+            android:id="@+id/quest_image" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="70dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:id="@+id/quest_text_layout"
+            android:layout_gravity="center_vertical"
+            android:baselineAligned="true"
+            android:clickable="true">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/restaurant_icon_image"
+                android:padding="0dp"
+                android:src="@android:color/white"
+                android:clickable="true"
+                android:layout_gravity="center_vertical" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/rest_offer_layout"
+                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:layout_margin="0dp"
+                android:layout_gravity="right"
+                android:clickable="false">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/test_rest"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:id="@+id/restaurant_textview"
+                    android:layout_alignParentTop="false"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:allowUndo="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:text="@string/test_offer"
+                    android:id="@+id/offer_textview"
+                    android:layout_below="@+id/restaurant_textview"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false" />
+                <TextView
+                    android:id="@id/time_remain_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="@string/test_time"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBottom="@+id/offer_textview" />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/restaurant_textview"
+                    android:src="@android:color/white"
+                    android:layout_alignParentEnd="true"
+                    android:id="@id/type_icon_1"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/restaurant_textview"
+                    android:src="@android:color/white"
+                    android:id="@id/type_icon_2"
+                    android:layout_toLeftOf="@id/type_icon_1"
+                    android:layout_marginRight="5dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/quest_info_text"
+        android:textColor="@android:color/black"
+        android:background="@color/white"
+        android:textSize="14sp"
+        android:text="@string/coupon_info_test"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:theme="@style/AppTheme" />
+    <RelativeLayout
+        android:id="@+id/quest_bottom_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/black"
+        android:padding="7.5dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="25dp"
+            android:src="@color/white"
+            android:id="@+id/chest_icon"
+            android:layout_alignParentEnd="true"/>
+        <TextView
+            android:id="@+id/progressbar_text"
+            android:gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="@string/wins"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
+        <ProgressBar
+            android:id="@+id/test_progressbar"
+            android:layout_width="0dp"
+            android:layout_toLeftOf="@id/chest_icon"
+            android:layout_toRightOf="@id/progressbar_text"
+            android:layout_height="8dp"
+            android:layout_marginStart="7.5dp"
+            android:layout_marginEnd="7.5dp"
+            android:background="@color/white"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

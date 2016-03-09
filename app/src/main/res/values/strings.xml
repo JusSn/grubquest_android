@@ -35,6 +35,8 @@
     <string name="test_OFF">$test OFF</string>
     <string name="view_reward">View Reward</string>
 
+    <!--strings for quest layout-->
+    <string name="wins">WINS</string>
     <!--arrays-->
     <string-array name="nav_array">
         <item>Settings</item>
