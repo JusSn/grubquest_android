@@ -1,14 +1,19 @@
 package com.grubquest.grubquest_android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
@@ -30,10 +35,15 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTabHost tabHost = (FragmentTabHost) findViewById(R.id.app_tabhost);
         tabHost.setup(this, getSupportFragmentManager(), R.id.tab_content);
 
-        tabHost.addTab(tabHost.newTabSpec("Loot").setIndicator("Loot"),
+        tabHost.addTab(setIndicator(this, tabHost.newTabSpec("Loot"), R.drawable.loot_icon, "Loot"),
                 LootFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("Quests"),
+        tabHost.addTab(setIndicator(this, tabHost.newTabSpec("Quests"),R.drawable.quest_icon, "Quests"),
                 QuestsFragment.class, null);
+//        tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("", getResources().getDrawable(R.drawable.quest_icon)),
+//                QuestsFragment.class, null);
+//
+//        tabHost.getTabWidget().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.themeRed));
+//        tabHost.getTabWidget().getChildAt(1).setBackgroundColor(getResources().getColor(R.color.themeRed));
 
         /** Nav Drawer Stuff **/
 
@@ -85,5 +95,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(exit_intent);
                 finish();
         }
+    }
+    public TabHost.TabSpec setIndicator(Context ctx,TabHost.TabSpec spec, int resId,String name) {
+        View v = LayoutInflater.from(ctx).inflate(R.layout.tabhost_row, null);
+        TextView textTab = (TextView) v.findViewById(R.id.textTab);
+        ImageView iconTab = (ImageView) v.findViewById(R.id.iconTab);
+        iconTab.setImageDrawable(getResources().getDrawable(resId));
+        textTab.setText(name);
+        return spec.setIndicator(v);
     }
 }
