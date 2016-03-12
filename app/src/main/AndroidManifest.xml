@@ -23,7 +23,8 @@
             android:name=".LoginActivity"
             android:noHistory="true"/>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SettingsActivity"
+                  android:theme="@style/AppThemeActionBar"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
