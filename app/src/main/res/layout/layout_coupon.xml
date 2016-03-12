@@ -30,7 +30,7 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:text="@string/test_time"
-            android:background="@drawable/round_black_10"
+            android:background="@drawable/black_round_10"
             android:layout_gravity="center_vertical"
             android:gravity="bottom|center_horizontal"
             android:layout_alignParentBottom="true"
@@ -156,7 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="0.67"
-            android:background="@drawable/round_red_5"/>
+            android:background="@drawable/dark_red_red_round"/>
 
         <View
             android:layout_width="0dp"
@@ -170,7 +170,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="0.3"
-            android:background="@drawable/round_red_5"
+            android:background="@drawable/dark_red_red_round"
             android:theme="@style/AppTheme" />
 
     </LinearLayout>
