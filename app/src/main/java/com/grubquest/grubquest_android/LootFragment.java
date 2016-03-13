@@ -5,14 +5,21 @@
 
 package com.grubquest.grubquest_android;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -27,6 +34,8 @@ import com.grubquest.grubquest_android.Models.QuestCoupon;
 import java.util.ArrayList;
 
 public class LootFragment extends Fragment {
+    private PopupWindow locTurnOnPopup;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,8 +44,11 @@ public class LootFragment extends Fragment {
 
         //get coupons from Firebase, port to FirebaseCouponModel
 
+
         if (true) {
+            final DisplayMetrics displayMetrics=getResources().getDisplayMetrics();
             view = inflater.inflate(R.layout.fragment_loot, container, false);
+
             RecyclerView lootRecyclerView =
                     (RecyclerView) view.findViewById(R.id.loot_recycler_view);
 
@@ -44,6 +56,20 @@ public class LootFragment extends Fragment {
             lootRecyclerView.setBackgroundColor(Color.LTGRAY);
             lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+            LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = layoutInflater.inflate(R.layout.turn_on_location_layout, null, false);
+
+            locTurnOnPopup = new PopupWindow(layout, (int) (300 * displayMetrics.density), (int) (400 * displayMetrics.density), true);
+            locTurnOnPopup.setContentView(layout);
+            locTurnOnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (50 * displayMetrics.density));
+
+            ImageView close_icon = (ImageView) layout.findViewById(R.id.close_icon);
+            close_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    locTurnOnPopup.dismiss();
+                }
+            });
 
             RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, CouponViewHolder>(QuestCoupon.class, R.layout.layout_coupon, CouponViewHolder.class, couponRef) {
                 private LayoutInflater inflater = LayoutInflater.from(getActivity());

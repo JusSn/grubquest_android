@@ -37,6 +37,10 @@
     <string name="test_OFF">$test OFF</string>
     <string name="view_reward">View Reward</string>
 
+    <string name="turn_location">Please enable location services!</string>
+    <string name="how_location">To do this, go to your device\nSettings -> Location</string>
+    <string name="location_try_again">Try Again</string>
+
     <!--strings for quest layout-->
     <string name="wins">WINS</string>
     <!--arrays-->

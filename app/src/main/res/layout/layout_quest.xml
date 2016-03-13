@@ -127,6 +127,7 @@
             android:id="@+id/chest_icon"
             android:layout_alignParentEnd="true"
             android:background="@drawable/red_round_pressable"
+            android:clickable="true"
             android:scaleType="fitCenter"
             android:padding="2dp" />
         <TextView
