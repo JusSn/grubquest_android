@@ -5,5 +5,5 @@ package com.grubquest.grubquest_android.Data;
  */
 public class GQConstants {
     public static final String DATABASE = "https://grubquest.firebaseio.com";
-
+    //public static final String DATABASE = "https://grubquest-live.firebaseio.com/";
 }

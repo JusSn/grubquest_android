@@ -44,8 +44,6 @@ public class LoginActivity extends AppCompatActivity {
                 firebase.authWithPassword(email, pass, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        //save user to users schema in firebase
-                        firebase.child("users").child(authData.getUid()).setValue(new User(email));
                         Intent next = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(next);
                     }
