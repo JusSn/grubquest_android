@@ -17,7 +17,9 @@
     <string name="nothing">Nothing to see here</string>
     <string name="quest">Quest</string>
     <string name="quest_fragment_apology">Quests to Come In Future Updates</string>
+    <string name="quest_notifications">Quest Notifications</string>
     <string name="seperator">Seperator</string>
+    <string name="shared_pref_file">com.grubquest.grubquest.data</string>
     <string name="username">Username</string>
     <string name="text_Login">Login</string>
     <string name="text_Username">Username</string>

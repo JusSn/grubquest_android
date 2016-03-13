@@ -1,12 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
     tools:context="com.grubquest.grubquest_android.SettingsActivity">
 
+    <RelativeLayout
+        android:id="@+id/settings_loot_notifications"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/settings_loot_imageview"
+            android:contentDescription="@string/nothing"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:src="@drawable/loot_notifications"/>
+
+        <TextView
+            android:id="@+id/settings_loot_text"
+            android:fontFamily="roboto_thin"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@id/settings_loot_imageview"
+            android:layout_width="wrap_content"
+            android:text="@string/loot_notifications" />
+
+        <Switch
+            android:id="@+id/settings_loot_switch"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/settings_loot_text"
+            android:layout_width="100dp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
+    </RelativeLayout>
+
+    <View
+        android:background="@color/black"
+        android:layout_below="@id/settings_loot_notifications"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/settings_quest_notifications"
+        android:layout_below="@+id/settings_loot_notifications"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/settings_quest_imageview"
+            android:contentDescription="@string/nothing"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:src="@drawable/quest_notifications"/>
+
+        <TextView
+            android:id="@+id/settings_quest_text"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@id/settings_quest_imageview"
+            android:layout_width="wrap_content"
+            android:text="@string/quest_notifications" />
+
+        <Switch
+            android:id="@+id/settings_quest_switch"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/settings_quest_text"
+            android:layout_width="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:background="@color/black"
+        android:layout_below="@id/settings_quest_notifications"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/settings_location_notifications"
+        android:layout_below="@+id/settings_quest_notifications"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/settings_location_imageview"
+            android:contentDescription="@string/nothing"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:src="@drawable/location_icon"/>
+
+        <TextView
+            android:id="@+id/settings_location_text"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@id/settings_location_imageview"
+            android:layout_width="wrap_content"
+            android:text="@string/quest_notifications" />
+
+        <Switch
+            android:id="@+id/settings_location_switch"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/settings_location_text"
+            android:layout_width="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:background="@color/black"
+        android:layout_below="@id/settings_location_notifications"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"/>
 </RelativeLayout>

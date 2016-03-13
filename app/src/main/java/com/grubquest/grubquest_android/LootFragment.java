@@ -44,6 +44,7 @@ public class LootFragment extends Fragment {
             lootRecyclerView.setBackgroundColor(Color.LTGRAY);
             lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
             RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, CouponViewHolder>(QuestCoupon.class, R.layout.layout_coupon, CouponViewHolder.class, couponRef) {
                 private LayoutInflater inflater = LayoutInflater.from(getActivity());
 
