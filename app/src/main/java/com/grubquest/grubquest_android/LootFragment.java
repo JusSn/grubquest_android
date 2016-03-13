@@ -41,12 +41,12 @@ public class LootFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view;
         final Firebase couponRef = new Firebase("https://grubquest.firebaseio.com/quests/LeagueOfLegends/TestDuo/frontDescription");
+        final DisplayMetrics displayMetrics=getResources().getDisplayMetrics();
 
         //get coupons from Firebase, port to FirebaseCouponModel
 
 
         if (true) {
-            final DisplayMetrics displayMetrics=getResources().getDisplayMetrics();
             view = inflater.inflate(R.layout.fragment_loot, container, false);
 
             RecyclerView lootRecyclerView =
@@ -55,6 +55,8 @@ public class LootFragment extends Fragment {
             lootRecyclerView.setHasFixedSize(true);
             lootRecyclerView.setBackgroundColor(Color.LTGRAY);
             lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            /** test of the popout view; will be refactored with proper behavior later**/
 
             LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = layoutInflater.inflate(R.layout.turn_on_location_layout, null, false);

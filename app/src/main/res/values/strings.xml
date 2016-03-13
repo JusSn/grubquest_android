@@ -43,6 +43,7 @@
 
     <!--strings for quest layout-->
     <string name="wins">WINS</string>
+    <string name="close">Close</string>
     <!--arrays-->
     <string-array name="nav_array">
         <item>Settings</item>
