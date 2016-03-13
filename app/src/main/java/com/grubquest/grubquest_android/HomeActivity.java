@@ -42,8 +42,8 @@ public class HomeActivity extends AppCompatActivity {
 //        tabHost.addTab(tabHost.newTabSpec("Quests").setIndicator("", getResources().getDrawable(R.drawable.quest_icon)),
 //                QuestsFragment.class, null);
 //
-//        tabHost.getTabWidget().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.themeRed));
-//        tabHost.getTabWidget().getChildAt(1).setBackgroundColor(getResources().getColor(R.color.themeRed));
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.red_tab_selected);
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.red_tab_selected);
 
         /** Nav Drawer Stuff **/
 
