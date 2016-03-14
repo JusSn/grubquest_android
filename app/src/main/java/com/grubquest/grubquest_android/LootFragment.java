@@ -61,9 +61,9 @@ public class LootFragment extends Fragment {
             LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = layoutInflater.inflate(R.layout.turn_on_location_layout, null, false);
 
-            locTurnOnPopup = new PopupWindow(layout, (int) (300 * displayMetrics.density), (int) (400 * displayMetrics.density), true);
+            locTurnOnPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
             locTurnOnPopup.setContentView(layout);
-            locTurnOnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (50 * displayMetrics.density));
+            locTurnOnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
 
             ImageView close_icon = (ImageView) layout.findViewById(R.id.close_icon);
             close_icon.setOnClickListener(new View.OnClickListener() {
