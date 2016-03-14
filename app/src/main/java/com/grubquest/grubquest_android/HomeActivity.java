@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -89,6 +90,24 @@ public class HomeActivity extends AppCompatActivity {
         g.execute();
     }
 
+    private void process(int position) {
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                /** this means logout **/
+                Firebase ref = new Firebase(GQConstants.DATABASE);
+                ref.unauth();
+                Intent exit_intent = new Intent(this, LoginActivity.class);
+                exit_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                exit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(exit_intent);
+                finish();
+        }
+    }
+
     private class GetRequest extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -150,24 +169,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void process(int position) {
-        switch (position) {
-            case 0:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                /** this means logout **/
-                Firebase ref = new Firebase(GQConstants.DATABASE);
-                ref.unauth();
-                Intent exit_intent = new Intent(this, LoginActivity.class);
-                exit_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                exit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(exit_intent);
-                finish();
-        }
-    }
-
     private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -176,13 +177,15 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @TargetApi(17)
-    public TabHost.TabSpec setIndicator(Context ctx,TabHost.TabSpec spec, int resId,String name) {
+    public TabHost.TabSpec setIndicator(Context ctx, TabHost.TabSpec spec, int resId, String name) {
         View v = LayoutInflater.from(ctx).inflate(R.layout.tabhost_row, null);
-        TextView textTab = (TextView) v.findViewById(R.id.textTab);
+
         ImageView iconTab = (ImageView) v.findViewById(R.id.iconTab);
-        iconTab.setImageDrawable(getResources().getDrawable(resId));
+        TextView textTab = (TextView) v.findViewById(R.id.textTab);
+
+        iconTab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), resId));
         textTab.setText(name);
+
         return spec.setIndicator(v);
     }
 }

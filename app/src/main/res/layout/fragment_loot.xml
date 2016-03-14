@@ -6,10 +6,41 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/loot_recycler_view"
+        android:background="@color/grayLight"
         android:foregroundGravity="center_horizontal"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="7dp"
         android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/loot_empty_recycler_view"
+        android:background="@color/grayLight"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/gray_rect"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/empty_quest_image"
+            android:contentDescription="@string/nothing"
+            android:layout_centerHorizontal="true"
+            android:layout_height="100dp"
+            android:layout_marginTop="170dp"
+            android:layout_width="100dp"
+            android:src="@drawable/duo_filled" />
+
+        <TextView
+            android:id="@+id/empty_screen_text_view"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/empty_quest_image"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:text="@string/empty_loot_text"
+            android:textColor="@color/grayDark"
+            android:textSize="15sp" />
+    </RelativeLayout>
 </RelativeLayout>

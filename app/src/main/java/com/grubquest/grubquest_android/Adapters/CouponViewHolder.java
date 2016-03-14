@@ -14,20 +14,17 @@ import com.grubquest.grubquest_android.R;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Justin on 3/2/16.
- */
 public class CouponViewHolder extends RecyclerView.ViewHolder {
-    public final TextView companyText, offerSmallText, offerInfo, couponTimer;
-    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
-    public LinearLayout offerTextLayout;
-
     public final Button cancelButton, redeemButton;
+    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
+    public final LinearLayout offerTextLayout;
+    public final TextView companyText, offerSmallText, offerInfo, couponTimer;
 
     private boolean expanded = false;
 
     public CouponViewHolder(final View dataView) {
         super(dataView);
+
         companyIcon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
         companyImage = (ImageView) dataView.findViewById(R.id.restaurant_image);
         companyText = (TextView) dataView.findViewById(R.id.restaurant_textview);
@@ -37,11 +34,10 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
         offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
         offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
-        redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
+        redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
 
         new CountDownTimer(10000, 1000) { // adjust the milli seconds here depending on coupon expiration time
-
             public void onTick(long millisUntilFinished) {
                 couponTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
@@ -53,7 +49,6 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
                                         .toMinutes(millisUntilFinished))));
             }
             public void onFinish() {
-
                 couponTimer.setText(R.string.expired);
 //                NotificationCompat.Builder expireNotifBuilder =
 //                        (NotificationCompat.Builder) new NotificationCompat.Builder(dataView.getContext())

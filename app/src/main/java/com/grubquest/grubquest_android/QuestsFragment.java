@@ -18,7 +18,7 @@ import android.widget.PopupWindow;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
-import com.grubquest.grubquest_android.Models.QuestCoupon;
+import com.grubquest.grubquest_android.Models.Coupon;
 
 public class QuestsFragment extends Fragment {
     private PopupWindow couponPopup;
@@ -53,12 +53,12 @@ public class QuestsFragment extends Fragment {
         questRecyclerView.setBackgroundColor(Color.LTGRAY);
         questRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, QuestViewHolder>(QuestCoupon.class, R.layout.layout_quest, QuestViewHolder.class, questRef) {
+        RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<Coupon, QuestViewHolder>(Coupon.class, R.layout.layout_quest, QuestViewHolder.class, questRef) {
             private LayoutInflater inflater = LayoutInflater.from(getActivity());
 
             @Override
-            protected void populateViewHolder(QuestViewHolder viewHolder, QuestCoupon model, int position) {
-                viewHolder.companyText.setText(model.getName());
+            protected void populateViewHolder(QuestViewHolder viewHolder, Coupon model, int position) {
+                viewHolder.companyText.setText(model.name);
             }
 
             //
