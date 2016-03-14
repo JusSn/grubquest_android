@@ -47,9 +47,15 @@
     <!--strings for quest layout-->
     <string name="wins">WINS</string>
     <string name="close">Close</string>
+
     <!--arrays-->
     <string-array name="nav_array">
         <item>Settings</item>
         <item>Log Out</item>
     </string-array>
+
+    <array name="nav_icons">
+        <item>@drawable/ic_settings_white_24dp</item>
+        <item>@drawable/ic_keyboard_arrow_left_white_24dp</item>>
+    </array>
 </resources>

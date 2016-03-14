@@ -1,7 +1,9 @@
 package com.grubquest.grubquest_android;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.widget.DrawerLayout;
@@ -64,14 +66,20 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.red_tab_selected);
 
         /** Nav Drawer Stuff **/
-        String[] navMenuOptions = getResources().getStringArray(R.array.nav_array);
+        ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerRel = (LinearLayout) findViewById(R.id.fuckme);
         ListView drawerList = (ListView) findViewById(R.id.list_slider_menu);
-        ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
+        String[] navMenuOptions = getResources().getStringArray(R.array.nav_array);
+        TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_icons);
 
-        for (String option : navMenuOptions)
-            navDrawerItems.add(new NavDrawerItem(option, R.drawable.warning));
+        for (int i = 0; i < navMenuOptions.length; i++) {
+            navDrawerItems.add(new NavDrawerItem(navMenuOptions[i],
+                    navMenuIcons.getResourceId(i, -1)));
+        }
+
+        navMenuIcons.recycle();
+
         NavDrawerListAdapter adapter =
                 new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         drawerList.setAdapter(adapter);
@@ -168,6 +176,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @TargetApi(17)
     public TabHost.TabSpec setIndicator(Context ctx,TabHost.TabSpec spec, int resId,String name) {
         View v = LayoutInflater.from(ctx).inflate(R.layout.tabhost_row, null);
         TextView textTab = (TextView) v.findViewById(R.id.textTab);

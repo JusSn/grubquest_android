@@ -43,10 +43,9 @@
                 android:id="@+id/slide_drawer_profile_img"
                 android:contentDescription="@string/nothing"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="35dp"
-                android:layout_height="80dp"
-                android:layout_width="80dp"
-                android:src="@drawable/warning"/>
+                android:layout_marginTop="25dp"
+                android:layout_height="100dp"
+                android:layout_width="100dp" />
             <TextView
                 android:id="@+id/slide_drawer_profile_text"
                 android:layout_below="@id/slide_drawer_profile_img"
