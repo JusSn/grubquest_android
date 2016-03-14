@@ -4,9 +4,9 @@ import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
@@ -18,27 +18,31 @@ import java.util.concurrent.TimeUnit;
  * Created by Justin on 3/8/16.
  */
 public class QuestViewHolder extends RecyclerView.ViewHolder {
-    public final TextView company_text, offer_small_text, quest_info, quest_timer;
-    public final ImageView quest_image, company_icon, icon1_image, icon2_image;
-    public LinearLayout quest_image_layout;
+    public final TextView companyText, offerSmallText, questInfo, questTimer;
+    public final ImageView questImage, companyIcon, icon1Image, icon2Image, chestIcon;
+    public LinearLayout questImageLayout;
+
 
     private boolean expanded = false;
 
     public QuestViewHolder(final View dataView) {
         super(dataView);
-        company_icon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
-        quest_image = (ImageView) dataView.findViewById(R.id.quest_image);
-        company_text = (TextView) dataView.findViewById(R.id.restaurant_textview);
-        quest_timer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-        icon1_image = (ImageView) dataView.findViewById(R.id.type_icon_1);
-        icon2_image = (ImageView) dataView.findViewById(R.id.type_icon_2);
-        quest_info = (TextView) dataView.findViewById(R.id.quest_info_text);
-        offer_small_text = (TextView) dataView.findViewById(R.id.offer_textview);
+        companyIcon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
+        questImage = (ImageView) dataView.findViewById(R.id.quest_image);
+        companyText = (TextView) dataView.findViewById(R.id.restaurant_textview);
+        questTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
+        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
+        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
+        questInfo = (TextView) dataView.findViewById(R.id.quest_info_text);
+        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
+        chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
+
+        //TODO: CountDownTimer does not run in background. Need to use AlarmManager to time and send notifications
         new CountDownTimer(10000, 1000) { // adjust the milli seconds here depending on coupon expiration time
 
             public void onTick(long millisUntilFinished) {
-                quest_timer.setText(String.format(Locale.US, "%02d:%02d:%02d",
+                questTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
                                 TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
@@ -49,7 +53,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
             }
             public void onFinish() {
 
-                quest_timer.setText(R.string.expired);
+                questTimer.setText(R.string.expired);
 //                NotificationCompat.Builder expireNotifBuilder =
 //                        (NotificationCompat.Builder) new NotificationCompat.Builder(dataView.getContext())
 //                                .setSmallIcon(R.drawable.warning)
@@ -58,29 +62,29 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
             }
         }.start();
 
-        quest_image_layout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
+        questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
 
-        quest_image_layout.setOnClickListener(new View.OnClickListener() {
+        questImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!expanded) {
                     expanded = true;
-                    ViewGroup.LayoutParams params = quest_info.getLayoutParams();
+                    ViewGroup.LayoutParams params = questInfo.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    quest_info.setLayoutParams(params);
+                    questInfo.setLayoutParams(params);
                 } else {
-                    quest_info.performClick();
+                    questInfo.performClick();
                     expanded = false;
                 }
             }
         });
 
-        quest_info.setOnClickListener(new View.OnClickListener() {
+        questInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = quest_info.getLayoutParams();
+                ViewGroup.LayoutParams params = questInfo.getLayoutParams();
                 params.height = 0;
-                quest_info.setLayoutParams(params);
+                questInfo.setLayoutParams(params);
             }
         });
     }

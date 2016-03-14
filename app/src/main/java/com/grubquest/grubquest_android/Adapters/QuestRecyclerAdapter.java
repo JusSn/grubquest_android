@@ -34,7 +34,7 @@ public class QuestRecyclerAdapter
 
     @Override
     public void onBindViewHolder(QuestViewHolder holder, int position) {
-        holder.company_text.setText("Hello, World!");
+        holder.companyText.setText("Hello, World!");
     }
 
     @Override

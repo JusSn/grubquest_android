@@ -5,7 +5,6 @@
 
 package com.grubquest.grubquest_android;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,19 +21,14 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.grubquest.grubquest_android.Adapters.CouponViewHolder;
-import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.QuestCoupon;
-
-import java.util.ArrayList;
 
 public class LootFragment extends Fragment {
     private PopupWindow locTurnOnPopup;
+    private PopupWindow deleteWarnPopup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,36 +43,19 @@ public class LootFragment extends Fragment {
         if (true) {
             view = inflater.inflate(R.layout.fragment_loot, container, false);
 
-            RecyclerView lootRecyclerView =
+            final RecyclerView lootRecyclerView =
                     (RecyclerView) view.findViewById(R.id.loot_recycler_view);
 
             lootRecyclerView.setHasFixedSize(true);
             lootRecyclerView.setBackgroundColor(Color.LTGRAY);
             lootRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            /** test of the popout view; will be refactored with proper behavior later**/
-
-            LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = layoutInflater.inflate(R.layout.turn_on_location_layout, null, false);
-
-            locTurnOnPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
-            locTurnOnPopup.setContentView(layout);
-            locTurnOnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
-
-            ImageView close_icon = (ImageView) layout.findViewById(R.id.close_icon);
-            close_icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    locTurnOnPopup.dismiss();
-                }
-            });
-
             RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, CouponViewHolder>(QuestCoupon.class, R.layout.layout_coupon, CouponViewHolder.class, couponRef) {
                 private LayoutInflater inflater = LayoutInflater.from(getActivity());
 
                 @Override
                 protected void populateViewHolder(CouponViewHolder viewHolder, QuestCoupon model, int position) {
-                    viewHolder.company_text.setText(model.getName());
+                    viewHolder.companyText.setText(model.getName());
                 }
 
                 //
@@ -91,7 +68,47 @@ public class LootFragment extends Fragment {
 
                 @Override
                 public void onBindViewHolder(CouponViewHolder viewHolder, int position) {
+                    viewHolder.redeemButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            /** check if location services on, and check if location matches. Set to always show popup for testing **/
+                            if (!locationCheck()) {
+                                LayoutInflater layoutInflater = (LayoutInflater) getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                View layout = layoutInflater.inflate(R.layout.turn_on_location_layout, null, false);
 
+                                locTurnOnPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
+                                locTurnOnPopup.setContentView(layout);
+                                locTurnOnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
+
+                                ImageView closeIcon = (ImageView) layout.findViewById(R.id.close_icon);
+                                closeIcon.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        locTurnOnPopup.dismiss();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    viewHolder.cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            View layout = layoutInflater.inflate(R.layout.delete_warn_popup, null, false);
+
+                            deleteWarnPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
+                            deleteWarnPopup.setContentView(layout);
+                            deleteWarnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
+
+                            Button cancelDeleteButton = (Button) layout.findViewById(R.id.cancel_delete_button);
+                            cancelDeleteButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    deleteWarnPopup.dismiss();
+                                }
+                            });
+                        }
+                    });
                 }
 
                 @Override
@@ -110,4 +127,12 @@ public class LootFragment extends Fragment {
 
         return view;
     }
+
+    public boolean removeItem() {
+
+
+        return false;
+    }
+    public boolean locationCheck() {return false;}
+
 }

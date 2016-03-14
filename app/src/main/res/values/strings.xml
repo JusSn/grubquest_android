@@ -1,4 +1,5 @@
 <resources>
+    <string name="yes">Yes</string>
     <string name="app_name">Grubquest_Android</string>
     <string name="empty_default">Hello\nYou are a fool</string>
     <string name="empty_loot_text">You don\'t have any loot right now!\n
@@ -40,6 +41,8 @@
     <string name="turn_location">Please enable location services!</string>
     <string name="how_location">To do this, go to your device\nSettings -> Location</string>
     <string name="location_try_again">Try Again</string>
+
+    <string name="delete_confirm">Delete this item from your account?</string>
 
     <!--strings for quest layout-->
     <string name="wins">WINS</string>

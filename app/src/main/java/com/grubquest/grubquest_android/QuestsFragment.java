@@ -1,10 +1,7 @@
 package com.grubquest.grubquest_android;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,22 +11,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 //import com.grubquest.grubquest_android.Adapters.QuestRecyclerAdapter;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
-import com.grubquest.grubquest_android.Adapters.CouponViewHolder;
 import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
-import com.grubquest.grubquest_android.Libraries.BlurBuilder;
-import com.grubquest.grubquest_android.Models.Quest;
 import com.grubquest.grubquest_android.Models.QuestCoupon;
-
-import java.util.ArrayList;
 
 public class QuestsFragment extends Fragment {
     private PopupWindow couponPopup;
@@ -57,36 +46,19 @@ public class QuestsFragment extends Fragment {
             empty_text.setText(getResources().getString(R.string.empty_loot_text));
         }*/
         view = inflater.inflate(R.layout.fragment_quests, container, false);
-        RecyclerView questRecyclerView =
+        final RecyclerView questRecyclerView =
                 (RecyclerView) view.findViewById(R.id.quest_recycler_view);
 
         questRecyclerView.setHasFixedSize(true);
         questRecyclerView.setBackgroundColor(Color.LTGRAY);
         questRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        /** test of the popout view; will be refactored with proper behavior later**/
-
-        LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.sample_coupon_layout, null, false);
-
-        couponPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
-        couponPopup.setContentView(layout);
-        couponPopup.showAtLocation(questRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
-
-        Button close_button = (Button) layout.findViewById(R.id.close_button);
-        close_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                couponPopup.dismiss();
-            }
-        });
-
         RecyclerView.Adapter couponAdapter = new FirebaseRecyclerAdapter<QuestCoupon, QuestViewHolder>(QuestCoupon.class, R.layout.layout_quest, QuestViewHolder.class, questRef) {
             private LayoutInflater inflater = LayoutInflater.from(getActivity());
 
             @Override
             protected void populateViewHolder(QuestViewHolder viewHolder, QuestCoupon model, int position) {
-                viewHolder.company_text.setText(model.getName());
+                viewHolder.companyText.setText(model.getName());
             }
 
             //
@@ -99,7 +71,25 @@ public class QuestsFragment extends Fragment {
 
             @Override
             public void onBindViewHolder(QuestViewHolder viewHolder, int position) {
+                viewHolder.chestIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LayoutInflater layoutInflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View layout = layoutInflater.inflate(R.layout.sample_coupon_layout, null, false);
 
+                        couponPopup = new PopupWindow(layout, displayMetrics.widthPixels, displayMetrics.heightPixels, true);
+                        couponPopup.setContentView(layout);
+                        couponPopup.showAtLocation(questRecyclerView, Gravity.CENTER, 0, (int) (25 * displayMetrics.density));
+
+                        Button close_button = (Button) layout.findViewById(R.id.close_button);
+                        close_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                couponPopup.dismiss();
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
