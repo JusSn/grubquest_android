@@ -105,6 +105,8 @@ public class LootFragment extends Fragment {
             Coupon coupon = items.get(position);
             holder.companyText.setText(coupon.name);
 
+            //TODO: change data of rest of stuff
+
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,11 +159,6 @@ public class LootFragment extends Fragment {
                     });
                 }
             });
-
-
-
-
-            //change data of rest of stuff
         }
 
         @Override
