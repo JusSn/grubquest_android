@@ -77,21 +77,26 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignBottom="@+id/offer_textview" />
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignBottom="@id/restaurant_textview"
-                    android:src="@android:color/white"
-                    android:layout_alignParentEnd="true"
                     android:id="@id/type_icon_1"
-                    android:layout_marginBottom="2dp"/>
-                <ImageView
-                    android:layout_width="15dp"
+                    android:layout_alignBottom="@id/restaurant_textview"
+                    android:layout_alignParentEnd="true"
                     android:layout_height="15dp"
-                    android:layout_alignBottom="@id/type_icon_1"
-                    android:src="@android:color/white"
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="15dp"
+                    android:src="@drawable/duo_quest_white" />
+                <ImageView
                     android:id="@id/type_icon_2"
-                    android:layout_toLeftOf="@id/type_icon_1"
-                    android:layout_marginRight="5dp" />
+                    android:layout_alignBottom="@id/type_icon_1"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@id/type_icon_1"
+                    android:layout_width="15dp"
+                    android:src="@drawable/duo_quest_white" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner" />
             </RelativeLayout>
 
         </LinearLayout>

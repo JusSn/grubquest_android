@@ -63,9 +63,31 @@ public class LootFragment extends Fragment {
     /**********************************************************************************************
      * Methods
      */
-    //check for location services
+    //TODO: still not implemented, make sure to add persmission on manifest as well
     public boolean locationCheck() {
         return false;
+    }
+
+    public String getResourceFromFirebase(DataSnapshot quest, String child) {
+        String[] array = quest.child(child).getValue().toString().split("/");
+        String answer = array[array.length - 1];
+        answer = answer.substring(0, answer.length() - 4);
+        return answer;
+    }
+
+    public int getDrawable(String name) {
+        return getResources().getIdentifier(name, "drawable",
+                getContext().getPackageName());
+    }
+
+    public String[] getIcons(DataSnapshot quest, String[] children) {
+        String[] array = new String[children.length];
+
+        for (int i = 0; i < children.length; i++) {
+            array[i] = getResourceFromFirebase(quest, children[i]);
+        }
+
+        return array;
     }
 
     /**********************************************************************************************
@@ -79,7 +101,13 @@ public class LootFragment extends Fragment {
                     items.clear();
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String[] array = {"mobile_quest_icon", "redeemIcon",
+                                "mobile_background_img", "restaurant_icon"};
+                        String[] icons = getIcons(postSnapshot, array);
+
                         String name = postSnapshot.child("name").getValue().toString();
+
+                        //TODO:add rest of items to coupon and modify couponviewholder
                         items.add(new Coupon(name));
                     }
 

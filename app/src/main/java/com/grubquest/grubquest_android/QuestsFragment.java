@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -62,6 +63,31 @@ public class QuestsFragment extends Fragment {
     }
 
     /**********************************************************************************************
+     * Methods
+     */
+    public String getResourceFromFirebase(DataSnapshot quest, String child) {
+        String[] array = quest.child(child).getValue().toString().split("/");
+        String answer = array[array.length - 1];
+        answer = answer.substring(0, answer.length() - 4);
+        return answer;
+    }
+
+    public int getDrawable(String name) {
+        return getResources().getIdentifier(name, "drawable",
+                getContext().getPackageName());
+    }
+
+    public String[] getIcons(DataSnapshot quest, String[] children) {
+        String[] array = new String[children.length];
+
+        for (int i = 0; i < children.length; i++) {
+            array[i] = getResourceFromFirebase(quest, children[i]);
+        }
+
+        return array;
+    }
+
+    /**********************************************************************************************
      * Classes
      */
     public class QuestAdapter extends RecyclerView.Adapter<QuestViewHolder> {
@@ -72,20 +98,26 @@ public class QuestsFragment extends Fragment {
                     items.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        items.add(new Quest(snapshot.child("questTypeIcon")
-                                .getValue().toString(),
-                                snapshot.child("redeemIcon")
-                                        .getValue().toString(),
+                        String[] array = {"mobile_quest_icon", "redeemIcon",
+                                "mobile_background_img", "restaurant_icon"};
+
+                        //String[] array = {"questTypeIcon", "redeemIcon", "backgroundImg"};
+                        String[] icons = getIcons(snapshot, array);
+
+                        Log.d("FUCK", "questTypeIcon: " + icons[0] +
+                                "\nredeemIcon: " + icons[1] +
+                                "\nbackgroundImg: " + icons[2]);
+
+                        items.add(new Quest(icons[0],
+                                icons[1],
                                 snapshot.child("savings")
                                         .getValue().toString(),
-                                snapshot.child("backgroundImg")
-                                        .getValue().toString(),
+                                icons[2],
                                 snapshot.child("frontDescription")
                                         .getValue().toString(),
                                 snapshot.child("restaurant/address")
                                         .getValue().toString(),
-                                snapshot.child("restaurant/address")
-                                        .getValue().toString()));
+                                icons[3]));
                     }
 
                     if (items.size() == 0) {
@@ -109,6 +141,18 @@ public class QuestsFragment extends Fragment {
         @Override
         public void onBindViewHolder(QuestViewHolder holder, int position) {
             Quest quest = items.get(position);
+
+            holder.companyIcon.setImageDrawable(ContextCompat
+                    .getDrawable(getContext(), getDrawable(quest.restaurant_icon)));
+            holder.questImage.setImageDrawable(ContextCompat
+                    .getDrawable(getContext(), getDrawable(quest.quest_image)));
+            holder.companyText.setText(quest.restaurant);
+            holder.icon1Image.setImageDrawable(ContextCompat
+                    .getDrawable(getContext(), getDrawable(quest.icon1)));
+            holder.icon2Image.setImageDrawable(ContextCompat
+                    .getDrawable(getContext(), getDrawable(quest.icon2)));
+            holder.questInfo.setText(quest.quest_info);
+            holder.offerSmallText.setText(quest.offer);
 
             //change name of stuff from items
 

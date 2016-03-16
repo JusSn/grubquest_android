@@ -1,13 +1,13 @@
 package com.grubquest.grubquest_android.Models;
 
 public class Quest {
-    String icon1;
-    String icon2;
-    String offer;
-    String quest_image;
-    String quest_info;
-    String restaurant;
-    String restaurant_icon;
+    public String icon1;
+    public String icon2;
+    public String offer;
+    public String quest_image;
+    public String quest_info;
+    public String restaurant;
+    public String restaurant_icon;
 
     public Quest(String icon1, String icon2, String offer, String quest_image,
                  String quest_info, String restaurant, String restaurant_icon) {
