@@ -44,10 +44,12 @@
 
     <string name="delete_confirm">Delete this item from your account?</string>
 
+    <string name="loot_expire_soon">Loot expiring soon!</string>
+
     <!--strings for quest layout-->
     <string name="wins">WINS</string>
     <string name="close">Close</string>
-
+    <string name="quest_expire_soon">Quest expiring soon!</string>
     <!--arrays-->
     <string-array name="nav_array">
         <item>Settings</item>

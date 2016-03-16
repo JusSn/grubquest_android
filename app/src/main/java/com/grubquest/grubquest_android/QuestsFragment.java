@@ -1,9 +1,12 @@
 package com.grubquest.grubquest_android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -26,6 +29,7 @@ import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Coupon;
 import com.grubquest.grubquest_android.Models.Quest;
+import com.grubquest.grubquest_android.GrubquestNotifier;
 
 import java.util.ArrayList;
 
@@ -107,13 +111,17 @@ public class QuestsFragment extends Fragment {
             Quest quest = items.get(position);
 
             //change name of stuff from items
-            holder.startCardTimer(10000); //System.currentTimeMillis - expire date of quest
-            holder.notify(getContext(), R.drawable.btb/*drawable specified in quest*/, 1, 5000);
+
+            long expireDate = 10000; //System.currentTimeMillis - expire date of quest
+            String questName = "Ayy fucking lmao";
+            holder.startCardTimer(expireDate); //System.currentTimeMillis - expire date of quest
+            GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
+                    LoginActivity.class), getString(R.string.quest_expire_soon), questName, expireDate);
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LayoutInflater layoutInflater = (LayoutInflater)getActivity()
+                    LayoutInflater layoutInflater = (LayoutInflater) getActivity()
                             .getBaseContext()
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View layout = layoutInflater.inflate(R.layout.sample_coupon_layout,
@@ -146,5 +154,7 @@ public class QuestsFragment extends Fragment {
 
         @Override
         public int getItemCount() { return items.size(); }
+
     }
+
 }

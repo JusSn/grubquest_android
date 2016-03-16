@@ -1,6 +1,7 @@
 package com.grubquest.grubquest_android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -106,6 +107,11 @@ public class LootFragment extends Fragment {
             holder.companyText.setText(coupon.name);
 
             //TODO: change data of rest of stuff
+            long expireDate = 10000; //System.currentTimeMillis - expire date of loot or whatever time before to give user time to use
+            String questName = "Ayy fucking lmao loot";
+            holder.startCardTimer(expireDate);
+            GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
+                    LoginActivity.class), getString(R.string.loot_expire_soon), questName, expireDate);
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override

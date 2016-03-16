@@ -36,28 +36,6 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
 
         cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
-
-        new CountDownTimer(10000, 1000) { // adjust the milli seconds here depending on coupon expiration time
-            public void onTick(long millisUntilFinished) {
-                couponTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
-                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
-                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
-                                        .toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
-                                        .toMinutes(millisUntilFinished))));
-            }
-            public void onFinish() {
-                couponTimer.setText(R.string.expired);
-//                NotificationCompat.Builder expireNotifBuilder =
-//                        (NotificationCompat.Builder) new NotificationCompat.Builder(dataView.getContext())
-//                        .setSmallIcon(R.drawable.warning)
-//                        .setContentTitle("My notification")
-//                        .setContentText("Hello World!");
-            }
-        }.start();
-
         offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
         offerTextLayout.setOnClickListener(new View.OnClickListener() {
@@ -85,5 +63,23 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
         });
 
 
+    }
+    public void startCardTimer(long expireTime) {
+
+        new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
+            public void onTick(long millisUntilFinished) {
+                couponTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
+                                        .toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
+                                        .toMinutes(millisUntilFinished))));
+            }
+            public void onFinish() {
+                couponTimer.setText(R.string.expired);
+            }
+        }.start();
     }
 }
