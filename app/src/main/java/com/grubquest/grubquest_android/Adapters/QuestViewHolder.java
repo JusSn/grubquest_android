@@ -1,6 +1,14 @@
 package com.grubquest.grubquest_android.Adapters;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.grubquest.grubquest_android.HomeActivity;
+import com.grubquest.grubquest_android.QuestsFragment;
 import com.grubquest.grubquest_android.R;
 
 import java.util.Locale;
@@ -39,28 +49,6 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
 
         //TODO: CountDownTimer does not run in background. Need to use AlarmManager to time and send notifications
-        new CountDownTimer(10000, 1000) { // adjust the milli seconds here depending on coupon expiration time
-
-            public void onTick(long millisUntilFinished) {
-                questTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
-                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
-                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
-                                        .toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
-                                        .toMinutes(millisUntilFinished))));
-            }
-            public void onFinish() {
-
-                questTimer.setText(R.string.expired);
-//                NotificationCompat.Builder expireNotifBuilder =
-//                        (NotificationCompat.Builder) new NotificationCompat.Builder(dataView.getContext())
-//                                .setSmallIcon(R.drawable.warning)
-//                                .setContentTitle("My notification")
-//                                .setContentText("Hello World!");
-            }
-        }.start();
 
         questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
 
@@ -87,5 +75,57 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
                 questInfo.setLayoutParams(params);
             }
         });
+    }
+    public void startCardTimer(long expireTime) {
+
+        new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
+            public void onTick(long millisUntilFinished) {
+                questTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
+                                        .toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
+                                        .toMinutes(millisUntilFinished))));
+            }
+            public void onFinish() {
+                questTimer.setText(R.string.expired);
+            }
+        }.start();
+    }
+    public void notify(Context context, int resId, int notifId, long expireTime) {
+        Intent intent = new Intent(context, QuestsFragment.class)
+                .putExtra("resId", resId)
+                .putExtra("notifId", notifId);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 2,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + expireTime, pendingIntent);
+    }
+    public class NotificationAlarmReceiver extends BroadcastReceiver {
+        NotificationManager notifManager;
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int resId = intent.getIntExtra("resId", 1);
+            int notifId = intent.getIntExtra("notifId", 2);
+
+            Intent notIntent = new Intent (context, HomeActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+            notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder notifBuilder =
+                    new NotificationCompat.Builder(context)
+                            .setContentIntent(contentIntent)
+                            .setSmallIcon(resId)
+                            .setContentTitle("FUCK")
+                            .setContentText("ME")
+                            .setAutoCancel(true);
+            notifManager.notify(notifId, notifBuilder.build());
+        }
     }
 }

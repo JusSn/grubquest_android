@@ -107,6 +107,8 @@ public class QuestsFragment extends Fragment {
             Quest quest = items.get(position);
 
             //change name of stuff from items
+            holder.startCardTimer(10000); //System.currentTimeMillis - expire date of quest
+            holder.notify(getContext(), R.drawable.btb/*drawable specified in quest*/, 1, 5000);
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,8 +125,8 @@ public class QuestsFragment extends Fragment {
                     couponPopup.showAtLocation(questRecyclerView, Gravity.CENTER, 0,
                             (int) (25 * displayMetrics.density));
 
-                    Button close_button = (Button) layout.findViewById(R.id.close_button);
-                    close_button.setOnClickListener(new View.OnClickListener() {
+                    Button closeButton = (Button) layout.findViewById(R.id.close_button);
+                    closeButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             couponPopup.dismiss();
