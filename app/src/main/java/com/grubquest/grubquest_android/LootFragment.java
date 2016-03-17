@@ -164,11 +164,12 @@ public class LootFragment extends Fragment {
 
 
             //TODO: change data of rest of stuff
-            long expireTimeLeft = coupon.expirationTime - System.currentTimeMillis(); //System.currentTimeMillis - expire date of loot or whatever time before to give user time to use
-            String restName = "Ayy fucking lmao loot";
+            //TODO: for some reason timer is being set across all cards when only the last coupon had a valid expiration date, not sure if I'm going insane. Maybe move startTimer() to this class instead of viewHolder
+            long expireTimeLeft = coupon.expirationTime - System.currentTimeMillis();
+            String restName = coupon.stringMap.get("frontDescription");
             holder.startCardTimer(expireTimeLeft);
             GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
-                    LoginActivity.class), getString(R.string.loot_expire_soon), restName, expireTimeLeft);
+                    LoginActivity.class), getString(R.string.loot_expire_soon), restName, expireTimeLeft - 86400000); //One day prior to coupon expiration
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
