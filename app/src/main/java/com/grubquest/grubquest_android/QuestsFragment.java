@@ -99,7 +99,7 @@ public class QuestsFragment extends Fragment {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String[] array = {"mobile_quest_icon", "redeemIcon",
-                                "mobile_background_img", "restaurant_icon"};
+                                "mobile_background_img", "mobile_restaurant_icon"};
 
                         //String[] array = {"questTypeIcon", "redeemIcon", "backgroundImg"};
                         String[] icons = getIcons(snapshot, array);
@@ -142,17 +142,17 @@ public class QuestsFragment extends Fragment {
         public void onBindViewHolder(QuestViewHolder holder, int position) {
             Quest quest = items.get(position);
 
-            holder.companyIcon.setImageDrawable(ContextCompat
-                    .getDrawable(getContext(), getDrawable(quest.restaurant_icon)));
-            holder.questImage.setImageDrawable(ContextCompat
-                    .getDrawable(getContext(), getDrawable(quest.quest_image)));
-            holder.companyText.setText(quest.restaurant);
-            holder.icon1Image.setImageDrawable(ContextCompat
-                    .getDrawable(getContext(), getDrawable(quest.icon1)));
-            holder.icon2Image.setImageDrawable(ContextCompat
-                    .getDrawable(getContext(), getDrawable(quest.icon2)));
-            holder.questInfo.setText(quest.quest_info);
-            holder.offerSmallText.setText(quest.offer);
+//            holder.companyIcon.setImageDrawable(ContextCompat
+//                    .getDrawable(getContext(), getDrawable(quest.restaurant_icon)));
+//            holder.questImage.setImageDrawable(ContextCompat
+//                    .getDrawable(getContext(), getDrawable(quest.quest_image)));
+//            holder.companyText.setText(quest.restaurant);
+//            holder.icon1Image.setImageDrawable(ContextCompat
+//                    .getDrawable(getContext(), getDrawable(quest.icon1)));
+//            holder.icon2Image.setImageDrawable(ContextCompat
+//                    .getDrawable(getContext(), getDrawable(quest.icon2)));
+//            holder.questInfo.setText(quest.quest_info);
+//            holder.offerSmallText.setText(quest.offer);
 
             //change name of stuff from items
 

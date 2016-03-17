@@ -11,33 +11,47 @@ import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CouponViewHolder extends RecyclerView.ViewHolder {
     public final Button cancelButton, redeemButton;
-    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
+//    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
+    public Map<String, ImageView> imageViewMap;
     public final LinearLayout offerTextLayout;
-    public final TextView companyText, offerSmallText, offerInfo, couponTimer;
+    public final TextView couponTimer;
+    public Map<String, TextView> textViewMap;
 
     private boolean expanded = false;
 
     public CouponViewHolder(final View dataView) {
         super(dataView);
+        imageViewMap = new HashMap<>();
+        textViewMap = new HashMap<>();
+//        companyIcon = (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon);
+//        companyImage = (ImageView) dataView.findViewById(R.id.restaurant_image);
+        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
+        imageViewMap.put("mobile_restaurant_img", (ImageView) dataView.findViewById(R.id.mobile_restaurant_img));
+        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
+        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
 
-        companyIcon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
-        companyImage = (ImageView) dataView.findViewById(R.id.restaurant_image);
-        companyText = (TextView) dataView.findViewById(R.id.restaurant_textview);
+        textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
+        textViewMap.put("frontDescription", (TextView) dataView.findViewById(R.id.frontDescription));
+        //TODO: change this description to match the coupon, nOT QUEST description once that is avail on FB
+        textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
-        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
-        offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
-        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
+//        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
+//        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
+//        offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
+//        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
         cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
+        final TextView offerInfo = textViewMap.get("description");
         offerTextLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

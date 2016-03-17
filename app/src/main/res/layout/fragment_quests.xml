@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/quest_recycler_view"
-        android:background="@color/grayLight"
+        android:background="@color/lightGray"
         android:clipToPadding="false"
         android:foregroundGravity="center_horizontal"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
 
     <RelativeLayout
         android:id="@+id/quests_empty_recycler_view"
-        android:background="@color/grayLight"
+        android:background="@color/lightGray"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:src="@drawable/gray_rect"
@@ -40,7 +40,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:text="@string/empty_quests_text"
-            android:textColor="@color/grayDark"
+            android:textColor="@color/darkGray"
             android:textSize="15sp" />
     </RelativeLayout>
 </RelativeLayout>

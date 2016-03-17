@@ -1,26 +1,13 @@
 package com.grubquest.grubquest_android.Adapters;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.grubquest.grubquest_android.HomeActivity;
-import com.grubquest.grubquest_android.QuestsFragment;
 import com.grubquest.grubquest_android.R;
 
 import java.util.Locale;
@@ -39,14 +26,14 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
 
     public QuestViewHolder(final View dataView) {
         super(dataView);
-        companyIcon = (ImageView) dataView.findViewById(R.id.restaurant_icon_image);
+        companyIcon = (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon);
         questImage = (ImageView) dataView.findViewById(R.id.quest_image);
-        companyText = (TextView) dataView.findViewById(R.id.restaurant_textview);
+        companyText = (TextView) dataView.findViewById(R.id.restaurantName);
         questTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
-        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
+        icon1Image = (ImageView) dataView.findViewById(R.id.mobile_method_icon);
+        icon2Image = (ImageView) dataView.findViewById(R.id.mobile_quest_icon);
         questInfo = (TextView) dataView.findViewById(R.id.quest_info_text);
-        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
+        offerSmallText = (TextView) dataView.findViewById(R.id.frontDescription);
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
 

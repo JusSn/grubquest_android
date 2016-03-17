@@ -68,7 +68,7 @@
             android:choiceMode="singleChoice"
             android:divider="@color/black"
             android:dividerHeight="2dp"
-            android:listSelector="@color/grayDark"
+            android:listSelector="@color/darkGray"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
         </ListView>

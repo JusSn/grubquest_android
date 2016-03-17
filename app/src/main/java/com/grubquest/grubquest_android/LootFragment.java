@@ -2,6 +2,8 @@ package com.grubquest.grubquest_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -26,6 +29,8 @@ import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Coupon;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class LootFragment extends Fragment {
     private ArrayList<Coupon> items = new ArrayList<>();
@@ -63,7 +68,7 @@ public class LootFragment extends Fragment {
     /**********************************************************************************************
      * Methods
      */
-    //TODO: still not implemented, make sure to add persmission on manifest as well
+    //TODO: still not implemented, make sure to add permission on manifest as well
     public boolean locationCheck() {
         return false;
     }
@@ -76,8 +81,13 @@ public class LootFragment extends Fragment {
     }
 
     public int getDrawable(String name) {
-        return getResources().getIdentifier(name, "drawable",
-                getContext().getPackageName());
+        try {
+            return getResources().getIdentifier(name, "drawable",
+                    getContext().getPackageName());
+        }
+        catch (Exception e) {
+            return R.color.darkRed;
+        }
     }
 
     public String[] getIcons(DataSnapshot quest, String[] children) {
@@ -102,13 +112,13 @@ public class LootFragment extends Fragment {
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String[] array = {"mobile_quest_icon", "redeemIcon",
-                                "mobile_background_img", "restaurant_icon"};
+                                "mobile_background_img", "mobile_restaurant_icon"};
                         String[] icons = getIcons(postSnapshot, array);
 
-                        String name = postSnapshot.child("name").getValue().toString();
+                        String name = postSnapshot.child("title").getValue().toString();
 
                         //TODO:add rest of items to coupon and modify couponviewholder
-                        items.add(new Coupon(name));
+                        items.add(new Coupon(postSnapshot));
                     }
 
                     if (items.size() == 0) {
@@ -132,14 +142,33 @@ public class LootFragment extends Fragment {
         @Override
         public void onBindViewHolder(CouponViewHolder holder, int position) {
             Coupon coupon = items.get(position);
-            holder.companyText.setText(coupon.name);
+//            holder.companyText.setText(coupon.restaurantName);
+//            holder.offerSmallText.setText(coupon.frontDescription);
+//            holder.offerInfo.setText(coupon.description);
+//            holder.companyImage.setImageResource(getDrawable(coupon.mobile_loot_background_img));
+//            holder.companyIcon.setImageResource(getDrawable(coupon.));
+            Iterator tvIt = holder.textViewMap.entrySet().iterator();
+            while (tvIt.hasNext()) {
+                Map.Entry pair = (Map.Entry) tvIt.next();
+                ((TextView)pair.getValue()).setText(coupon.stringMap.get(pair.getKey()));
+            }
+            Iterator ivIt = holder.imageViewMap.entrySet().iterator();
+            while (ivIt.hasNext()) {
+                Map.Entry pair = (Map.Entry) ivIt.next();
+                ((ImageView) pair.getValue()).setImageResource(getDrawable(coupon.stringMap.get(pair.getKey())));
+            }
+            //TODO: figure out wtf we're gonna do with all these different colored icons with ambiguous fucking names
+            Drawable d = getResources().getDrawable(R.drawable.delivery_white);
+            d.setColorFilter(GQConstants.COLORFILTER_NEGATIVE);
+            holder.imageViewMap.get("mobile_method_icon").setImageDrawable(d);
+
 
             //TODO: change data of rest of stuff
-            long expireDate = 10000; //System.currentTimeMillis - expire date of loot or whatever time before to give user time to use
-            String questName = "Ayy fucking lmao loot";
-            holder.startCardTimer(expireDate);
+            long expireTimeLeft = coupon.expirationTime - System.currentTimeMillis(); //System.currentTimeMillis - expire date of loot or whatever time before to give user time to use
+            String restName = "Ayy fucking lmao loot";
+            holder.startCardTimer(expireTimeLeft);
             GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
-                    LoginActivity.class), getString(R.string.loot_expire_soon), questName, expireDate);
+                    LoginActivity.class), getString(R.string.loot_expire_soon), restName, expireTimeLeft);
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
