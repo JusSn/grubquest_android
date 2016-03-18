@@ -73,13 +73,13 @@ public class LootFragment extends Fragment {
         return false;
     }
 
-    public String getResourceFromFirebase(DataSnapshot quest, String child) {
-        String[] array = quest.child(child).getValue().toString().split("/");
-        String answer = array[array.length - 1];
-        answer = answer.substring(0, answer.length() - 4);
-        return answer;
-    }
-
+//    public String getResourceFromFirebase(DataSnapshot quest, String child) {
+//        String[] array = quest.child(child).getValue().toString().split("/");
+//        String answer = array[array.length - 1];
+//        answer = answer.substring(0, answer.length() - 4);
+//        return answer;
+//    }
+//
     public int getDrawable(String name) {
         try {
             return getResources().getIdentifier(name, "drawable",
@@ -89,16 +89,16 @@ public class LootFragment extends Fragment {
             return R.color.darkRed;
         }
     }
-
-    public String[] getIcons(DataSnapshot quest, String[] children) {
-        String[] array = new String[children.length];
-
-        for (int i = 0; i < children.length; i++) {
-            array[i] = getResourceFromFirebase(quest, children[i]);
-        }
-
-        return array;
-    }
+//
+//    public String[] getIcons(DataSnapshot quest, String[] children) {
+//        String[] array = new String[children.length];
+//
+//        for (int i = 0; i < children.length; i++) {
+//            array[i] = getResourceFromFirebase(quest, children[i]);
+//        }
+//
+//        return array;
+//    }
 
     /**********************************************************************************************
      * Classes
@@ -113,7 +113,7 @@ public class LootFragment extends Fragment {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String[] array = {"mobile_quest_icon", "redeemIcon",
                                 "mobile_background_img", "mobile_restaurant_icon"};
-                        String[] icons = getIcons(postSnapshot, array);
+//                        String[] icons = getIcons(postSnapshot, array);
 
                         String name = postSnapshot.child("title").getValue().toString();
 
@@ -198,31 +198,31 @@ public class LootFragment extends Fragment {
                 }
             });
 
-            holder.cancelButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LayoutInflater layoutInflater = (LayoutInflater)getActivity()
-                            .getBaseContext()
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View layout = layoutInflater.inflate(R.layout.delete_warn_popup,
-                            null, false);
-
-                    deleteWarnPopup = new PopupWindow(layout, displayMetrics.widthPixels,
-                            displayMetrics.heightPixels, true);
-                    deleteWarnPopup.setContentView(layout);
-                    deleteWarnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0,
-                            (int) (25 * displayMetrics.density));
-
-                    Button cancelDeleteButton =
-                            (Button) layout.findViewById(R.id.cancel_delete_button);
-                    cancelDeleteButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            deleteWarnPopup.dismiss();
-                        }
-                    });
-                }
-            });
+//            holder.cancelButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    LayoutInflater layoutInflater = (LayoutInflater)getActivity()
+//                            .getBaseContext()
+//                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                    View layout = layoutInflater.inflate(R.layout.delete_warn_popup,
+//                            null, false);
+//
+//                    deleteWarnPopup = new PopupWindow(layout, displayMetrics.widthPixels,
+//                            displayMetrics.heightPixels, true);
+//                    deleteWarnPopup.setContentView(layout);
+//                    deleteWarnPopup.showAtLocation(lootRecyclerView, Gravity.CENTER, 0,
+//                            (int) (25 * displayMetrics.density));
+//
+//                    Button cancelDeleteButton =
+//                            (Button) layout.findViewById(R.id.cancel_delete_button);
+//                    cancelDeleteButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            deleteWarnPopup.dismiss();
+//                        }
+//                    });
+//                }
+//            });
         }
 
         @Override

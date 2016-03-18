@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CouponViewHolder extends RecyclerView.ViewHolder {
-    public final Button cancelButton, redeemButton;
+    public final Button redeemButton;
 //    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
     public Map<String, ImageView> imageViewMap;
     public final LinearLayout offerTextLayout;
@@ -47,7 +47,7 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
 //        offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
 //        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
-        cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
+//        cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
