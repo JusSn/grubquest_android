@@ -12,12 +12,13 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:tint="#55FFFFFF"
         android:src="@drawable/login_background"
         android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:id="@+id/lytBackdrop"
-        android:background="@drawable/black_border_box"
+        android:background="@drawable/red_rect"
         android:layout_centerInParent="true"
         android:layout_height="300dp"
         android:layout_width="300dp">

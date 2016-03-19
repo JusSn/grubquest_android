@@ -41,6 +41,7 @@
     <string name="turn_location">Please enable location services!</string>
     <string name="how_location">To do this, go to your device\nSettings -> Location</string>
     <string name="location_try_again">Try Again</string>
+    <string name="location_toggle">Location Confirmation</string>
 
     <string name="delete_confirm">Delete this item from your account?</string>
 

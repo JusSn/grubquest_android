@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -11,7 +11,8 @@
         android:id="@+id/settings_loot_notifications"
         android:layout_height="50dp"
         android:layout_width="match_parent"
-        android:padding="10dp">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
 
         <ImageView
             android:id="@+id/settings_loot_imageview"
@@ -26,26 +27,29 @@
             android:fontFamily="roboto_thin"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@id/settings_loot_imageview"
             android:layout_width="wrap_content"
             android:text="@string/loot_notifications" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/settings_loot_switch"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/settings_loot_text"
             android:layout_width="100dp"
+
             android:textOff="OFF"
             android:textOn="ON"/>
     </RelativeLayout>
 
     <View
-        android:background="@color/black"
         android:layout_below="@id/settings_loot_notifications"
-        android:layout_height="1dp"
+        android:background="@color/lightGray"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_height="0.5dp"
         android:layout_width="match_parent"/>
 
     <RelativeLayout
@@ -54,7 +58,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:padding="10dp">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
 
         <ImageView
             android:id="@+id/settings_quest_imageview"
@@ -68,12 +73,12 @@
             android:id="@+id/settings_quest_text"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@id/settings_quest_imageview"
             android:layout_width="wrap_content"
             android:text="@string/quest_notifications" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/settings_quest_switch"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -83,9 +88,11 @@
     </RelativeLayout>
 
     <View
-        android:background="@color/black"
+        android:background="@color/lightGray"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/settings_quest_notifications"
-        android:layout_height="1dp"
         android:layout_width="match_parent"/>
 
     <RelativeLayout
@@ -94,7 +101,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:padding="10dp">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
 
         <ImageView
             android:id="@+id/settings_location_imageview"
@@ -108,12 +116,12 @@
             android:id="@+id/settings_location_text"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@id/settings_location_imageview"
             android:layout_width="wrap_content"
-            android:text="@string/quest_notifications" />
+            android:text="@string/location_toggle" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/settings_location_switch"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -122,9 +130,9 @@
             android:layout_width="wrap_content" />
     </RelativeLayout>
 
-    <View
-        android:background="@color/black"
-        android:layout_below="@id/settings_location_notifications"
-        android:layout_height="1dp"
-        android:layout_width="match_parent"/>
+    <!--<View-->
+        <!--android:background="@color/black"-->
+        <!--android:layout_below="@id/settings_location_notifications"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_width="match_parent"/>-->
 </RelativeLayout>
