@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.firebase.client.AuthData;
@@ -63,8 +64,13 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.addTab(setIndicator(this, tabHost.newTabSpec("Quests"),
                 R.drawable.quest_icon, "Quests"), QuestsFragment.class, null);
 
-        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.red_tab_selected);
-        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.red_tab_selected);
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.red_rect);
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.red_rect);
+
+        TabWidget tabs = tabHost.getTabWidget();
+        tabs.setStripEnabled(true);
+        tabs.setLeftStripDrawable(R.color.white);
+        tabs.setRightStripDrawable(R.color.white);
 
         /** Nav Drawer Stuff **/
         ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
