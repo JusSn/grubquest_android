@@ -10,58 +10,65 @@ import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Justin on 3/8/16.
  */
 public class QuestViewHolder extends RecyclerView.ViewHolder {
-    public final TextView companyText, offerSmallText, questInfo, questTimer;
-    public final ImageView questImage, companyIcon, icon1Image, icon2Image, chestIcon;
-    public LinearLayout questImageLayout;
+    public Map<String, ImageView> imageViewMap = new HashMap<>();
+    public Map<String, TextView> textViewMap = new HashMap<>();
 
+    public final TextView questTimer, description;
+    public final ImageView chestIcon;
+    public LinearLayout questImageLayout;
 
     private boolean expanded = false;
 
     public QuestViewHolder(final View dataView) {
         super(dataView);
-        companyIcon = (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon);
-        questImage = (ImageView) dataView.findViewById(R.id.quest_image);
-        companyText = (TextView) dataView.findViewById(R.id.restaurantName);
+
+        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
+        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
+        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
+        imageViewMap.put("mobile_background_img", (ImageView) dataView.findViewById(R.id.mobile_background_img));
+
+        textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
+        textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
+        textViewMap.put("title", (TextView) dataView.findViewById(R.id.title));
+
         questTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-        icon1Image = (ImageView) dataView.findViewById(R.id.mobile_method_icon);
-        icon2Image = (ImageView) dataView.findViewById(R.id.mobile_quest_icon);
-        questInfo = (TextView) dataView.findViewById(R.id.quest_info_text);
-        offerSmallText = (TextView) dataView.findViewById(R.id.frontDescription);
+        description = (TextView) dataView.findViewById(R.id.description);
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
-
-        //TODO: CountDownTimer does not run in background. Need to use AlarmManager to time and send notifications
-
         questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
 
         questImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewGroup.LayoutParams params = description.getLayoutParams();
                 if (!expanded) {
                     expanded = true;
-                    ViewGroup.LayoutParams params = questInfo.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    questInfo.setLayoutParams(params);
+                    description.setLayoutParams(params);
                 } else {
-                    questInfo.performClick();
+                    params.height = 0;
+                    description.setLayoutParams(params);
                     expanded = false;
                 }
             }
         });
 
-        questInfo.setOnClickListener(new View.OnClickListener() {
+        description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = questInfo.getLayoutParams();
+                ViewGroup.LayoutParams params = description.getLayoutParams();
                 params.height = 0;
-                questInfo.setLayoutParams(params);
+                description.setLayoutParams(params);
+                expanded = false;
             }
         });
     }

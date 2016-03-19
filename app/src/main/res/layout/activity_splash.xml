@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.grubquest.grubquest_android.SplashActivity"
-    android:background="@color/themeRed"
+    android:background="@drawable/splash"
     android:id="@+id/lytMain">
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/imgLogo"
-        android:src="@drawable/logotype" />
 </RelativeLayout>

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.firebase.client.AuthData;
@@ -63,8 +64,8 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.addTab(setIndicator(this, tabHost.newTabSpec("Quests"),
                 R.drawable.quest_icon, "Quests"), QuestsFragment.class, null);
 
-        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.red_tab_selected);
-        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.red_tab_selected);
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
 
         /** Nav Drawer Stuff **/
         ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
@@ -145,26 +146,31 @@ public class HomeActivity extends AppCompatActivity {
             firebase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.child("summonerName").getValue().toString();
-                    Integer img = Integer.parseInt(
-                            dataSnapshot.child("profileIconId").getValue().toString());
+                    String name;
+                    if (dataSnapshot.child("summonerName").getValue() != null) {
+                        name = dataSnapshot.child("summonerName").getValue().toString();
 
-                    /** Nav Image Stuff **/
-                    ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
-                    ImageLoader img_loader = ImageLoader.getInstance();
-                    img_loader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
+                        Integer img = Integer.parseInt(
+                                dataSnapshot.child("profileIconId").getValue().toString());
 
-                    String string = String.format(Locale.US,
-                            "http://ddragon.leagueoflegends.com/cdn/%s/img/profileicon/%d.png",
-                            message, img);
-                    img_loader.displayImage(string, profile);
+                        /** Nav Image Stuff **/
+                        ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
+                        ImageLoader img_loader = ImageLoader.getInstance();
+                        img_loader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
 
-                    TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
-                    profile_name.setText(name);
+                        String string = String.format(Locale.US,
+                                "http://ddragon.leagueoflegends.com/cdn/%s/img/profileicon/%d.png",
+                                message, img);
+                        img_loader.displayImage(string, profile);
+
+                        TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
+                        profile_name.setText(name);
+                    }
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {}
+                public void onCancelled(FirebaseError firebaseError) {
+                }
             });
         }
     }

@@ -6,9 +6,10 @@
     android:layout_width="match_parent">
 
     <!--why do I have a tabhost here when I can have a viewpager?????-->
+
     <android.support.v4.app.FragmentTabHost
         android:id='@+id/app_tabhost'
-        android:layout_height="match_parent"
+        android:layout_height="58dp"
         android:layout_width="match_parent"
         android:background="@color/themeRed">
         <TabWidget
@@ -19,11 +20,22 @@
             android:orientation="horizontal" />
     </android.support.v4.app.FragmentTabHost>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/tab_content"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />
+    <View
+        android:layout_marginTop="58dp"
+        android:id="@+id/tab_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/bar_shadow" />
+</RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/fuckme"
@@ -34,16 +46,17 @@
 
         <RelativeLayout
             android:id="@+id/layout_above_list"
-            android:background="@color/graySideBar"
+            android:background="@color/themePink"
             android:divider="@color/black"
-            android:dividerHeight="2dp"
-            android:layout_height="160dp"
+            android:dividerHeight="0dp"
+            android:layout_height="170dp"
             android:layout_width="match_parent">
             <ImageView
                 android:id="@+id/slide_drawer_profile_img"
                 android:contentDescription="@string/nothing"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="100dp"
                 android:layout_width="100dp" />
             <TextView
@@ -53,22 +66,22 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@string/karmicdemon"
-                android:textColor="@color/white"
+                android:textColor="@color/graySideBar"
                 android:textSize="12sp" />
         </RelativeLayout>
 
-        <View
-            android:background="@color/black"
-            android:layout_height="2dp"
-            android:layout_width="match_parent"/>
+        <!--<View-->
+            <!--android:background="@color/black"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_width="match_parent"/>-->
 
         <ListView
             android:id="@+id/list_slider_menu"
-            android:background="@color/graySideBar"
+            android:background="@color/themePink"
             android:choiceMode="singleChoice"
             android:divider="@color/black"
-            android:dividerHeight="2dp"
-            android:listSelector="@color/darkGray"
+            android:dividerHeight="0dp"
+            android:listSelector="@drawable/red_rect_pressable"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
         </ListView>

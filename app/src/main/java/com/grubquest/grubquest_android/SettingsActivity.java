@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -20,15 +21,19 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        android.app.ActionBar ab = getActionBar();
+        if (ab != null)
+            ab.setDisplayHomeAsUpEnabled(true);
+
         sharedPref =  getSharedPreferences(getString(R.string.shared_pref_file),
                 Context.MODE_PRIVATE);
 
         ActionBar bar = getSupportActionBar();
         if (bar != null) bar.setTitle("Settings");
 
-        Switch location_notif_switch = (Switch) findViewById(R.id.settings_location_switch);
-        Switch loot_notif_switch = (Switch) findViewById(R.id.settings_loot_switch);
-        Switch quest_notif_switch = (Switch) findViewById(R.id.settings_quest_switch);
+        SwitchCompat location_notif_switch = (SwitchCompat) findViewById(R.id.settings_location_switch);
+        SwitchCompat loot_notif_switch = (SwitchCompat) findViewById(R.id.settings_loot_switch);
+        SwitchCompat quest_notif_switch = (SwitchCompat) findViewById(R.id.settings_quest_switch);
 
         location_notif_switch.setChecked(sharedPref.getBoolean("Location_Notif", true));
         loot_notif_switch.setChecked(sharedPref.getBoolean("Loot_Notif", true));

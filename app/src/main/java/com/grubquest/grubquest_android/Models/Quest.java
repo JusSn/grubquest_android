@@ -1,22 +1,33 @@
 package com.grubquest.grubquest_android.Models;
 
-public class Quest {
-    public String icon1;
-    public String icon2;
-    public String offer;
-    public String quest_image;
-    public String quest_info;
-    public String restaurant;
-    public String restaurant_icon;
+import com.firebase.client.DataSnapshot;
 
-    public Quest(String icon1, String icon2, String offer, String quest_image,
-                 String quest_info, String restaurant, String restaurant_icon) {
-        this.icon1 = icon1;
-        this.icon2 = icon2;
-        this.offer = offer;
-        this.quest_image = quest_image;
-        this.quest_info = quest_info;
-        this.restaurant = restaurant;
-        this.restaurant_icon = restaurant_icon;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+public class Quest {
+    public Map<String, String> stringMap = new HashMap<>();
+    public long expirationTime;
+
+    public Quest(DataSnapshot snapshot) {
+        stringMap.put("restaurantName", snapshot.child("restaurant").child("name").getValue().toString());
+
+        //// TODO: 3/19/16 recurse into children to get strings
+        for (DataSnapshot child : snapshot.getChildren())
+            if (child.getValue() instanceof String)
+                stringMap.put(child.getKey(), getResourceFromFirebase(child.getValue().toString()));
+
+        expirationTime = (long) snapshot.child("expirationTime").getValue();
+    }
+    public String getResourceFromFirebase(String fullPath) {
+        if (fullPath != null) {
+            String[] array = fullPath.split(Pattern.quote("/"));
+            String answer = array[array.length - 1];
+            array = answer.split(Pattern.quote("."));
+            answer = array[0];
+            return answer;
+        }
+        return null;
     }
 }

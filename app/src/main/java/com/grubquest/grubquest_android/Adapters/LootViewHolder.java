@@ -16,24 +16,21 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class CouponViewHolder extends RecyclerView.ViewHolder {
+public class LootViewHolder extends RecyclerView.ViewHolder {
+    public Map<String, ImageView> imageViewMap = new HashMap<>();
+    public Map<String, TextView> textViewMap = new HashMap<>();
+
     public final Button redeemButton;
-//    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
-    public Map<String, ImageView> imageViewMap;
     public final LinearLayout offerTextLayout;
     public final TextView couponTimer;
-    public Map<String, TextView> textViewMap;
 
     private boolean expanded = false;
 
-    public CouponViewHolder(final View dataView) {
+    public LootViewHolder(final View dataView) {
         super(dataView);
-        imageViewMap = new HashMap<>();
-        textViewMap = new HashMap<>();
-//        companyIcon = (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon);
-//        companyImage = (ImageView) dataView.findViewById(R.id.restaurant_image);
+
         imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
-        imageViewMap.put("mobile_restaurant_img", (ImageView) dataView.findViewById(R.id.mobile_restaurant_img));
+        imageViewMap.put("backgroundImg", (ImageView) dataView.findViewById(R.id.backgroundImg));
         imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
         imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
 
@@ -42,12 +39,7 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
         //TODO: change this description to match the coupon, nOT QUEST description once that is avail on FB
         textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-//        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
-//        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
-//        offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
-//        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
-//        cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
@@ -55,13 +47,14 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
         offerTextLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                 if (!expanded) {
                     expanded = true;
-                    ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     offerInfo.setLayoutParams(params);
                 } else {
-                    offerInfo.performClick();
+                    params.height = 0;
+                    offerInfo.setLayoutParams(params);
                     expanded = false;
                 }
             }
@@ -73,13 +66,13 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
                 ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                 params.height = 0;
                 offerInfo.setLayoutParams(params);
+                expanded = false;
             }
         });
 
 
     }
     public void startCardTimer(long expireTime) {
-
         new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
             public void onTick(long millisUntilFinished) {
                 couponTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",

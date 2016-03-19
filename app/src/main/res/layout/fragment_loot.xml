@@ -1,12 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:id="@+id/loot_swipe_layout"
+    android:background="@color/lightGray"
     tools:context=".LootFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/loot_recycler_view"
-        android:background="@color/lightGray"
         android:foregroundGravity="center_horizontal"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="170dp"
             android:layout_width="100dp"
-            android:src="@drawable/duo_filled" />
+            android:src="@drawable/empty_loot_emblem" />
 
         <TextView
             android:id="@+id/empty_screen_text_view"
@@ -43,4 +44,4 @@
             android:textColor="@color/darkGray"
             android:textSize="15sp" />
     </RelativeLayout>
-</RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
