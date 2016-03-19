@@ -1,14 +1,16 @@
-<android.support.v4.widget.SwipeRefreshLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout
+
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/lightGray"
     android:id="@+id/quests_swipe_layout"
     tools:context="com.grubquest.grubquest_android.QuestsFragment">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/quest_recycler_view"
         android:background="@color/lightGray"
@@ -19,6 +21,8 @@
         android:paddingBottom="7dp"
         android:scrollbars="vertical" />
 
+
+</android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
         android:id="@+id/quests_empty_recycler_view"
         android:background="@color/lightGray"
@@ -48,5 +52,4 @@
             android:textColor="@color/darkGray"
             android:textSize="15sp" />
     </RelativeLayout>
-    </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

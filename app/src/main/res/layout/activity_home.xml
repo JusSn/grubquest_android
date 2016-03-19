@@ -23,18 +23,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <FrameLayout
-        android:id="@+id/tab_content"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        />
-    <View
-        android:layout_marginTop="58dp"
-        android:id="@+id/tab_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/bar_shadow" />
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/tab_content"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            />
+        <View
+            android:layout_marginTop="58dp"
+            android:id="@+id/tab_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/bar_shadow" />
+    </RelativeLayout>
 
 
     <LinearLayout

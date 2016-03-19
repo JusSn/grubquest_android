@@ -73,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         /** Nav Drawer Stuff **/
         ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.setScrimColor(getResources().getColor(R.color.grayMask));
         drawerRel = (LinearLayout) findViewById(R.id.fuckme);
         ListView drawerList = (ListView) findViewById(R.id.list_slider_menu);
         String[] navMenuOptions = getResources().getStringArray(R.array.nav_array);
