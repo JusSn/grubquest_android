@@ -25,6 +25,7 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:text="@string/empty_loot_text"
+
         android:textColor="@color/darkGray"
         android:textSize="15sp" />
 </RelativeLayout>

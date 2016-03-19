@@ -51,8 +51,6 @@ public class QuestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quests, container, false);
-        Firebase ref = new Firebase(GQConstants.DATABASE);
-        ref = ref.child("quests/LeagueOfLegends");
 
         this.container = container;
         displayMetrics = getResources().getDisplayMetrics();

@@ -40,7 +40,7 @@
     <LinearLayout
         android:id="@+id/fuckme"
         android:layout_gravity="start"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -49,25 +49,26 @@
             android:background="@color/themePink"
             android:divider="@color/black"
             android:dividerHeight="0dp"
-            android:layout_height="170dp"
-            android:layout_width="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
             <ImageView
                 android:id="@+id/slide_drawer_profile_img"
                 android:contentDescription="@string/nothing"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="10dp"
-                android:layout_height="100dp"
-                android:layout_width="100dp" />
+                android:layout_height="160dp"
+                android:layout_width="240dp"
+                android:scaleType="centerCrop"
+                android:tint="#88000000"/>
             <TextView
                 android:id="@+id/slide_drawer_profile_text"
-                android:layout_below="@id/slide_drawer_profile_img"
+                android:layout_alignBottom="@id/slide_drawer_profile_img"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_margin="20dp"
                 android:text="@string/karmicdemon"
-                android:textColor="@color/graySideBar"
-                android:textSize="12sp" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <!--<View-->

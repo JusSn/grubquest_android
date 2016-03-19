@@ -1,12 +1,14 @@
 package com.grubquest.grubquest_android;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -34,6 +36,15 @@ public class LoginActivity extends AppCompatActivity {
         final EditText password = (EditText) findViewById(R.id.password_edittext);
         final EditText username = (EditText) findViewById(R.id.username_edittext);
         final RelativeLayout incorrect = (RelativeLayout) findViewById(R.id.invalid_username_pass);
+
+        final ImageView logo = (ImageView) findViewById(R.id.logo);
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.grubquest.gg")));
+            }
+        });
 
 
         login_button.setOnClickListener(new View.OnClickListener() {

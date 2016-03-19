@@ -6,8 +6,12 @@
     android:background="@color/lightGray"
     tools:context=".LootFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/loot_recycler_view"
+        android:background="@color/lightGray"
         android:foregroundGravity="center_horizontal"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -20,8 +24,7 @@
         android:background="@color/lightGray"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:src="@drawable/gray_rect"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:id="@+id/empty_quest_image"
@@ -40,8 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
+            android:autoLink="web"
             android:text="@string/empty_loot_text"
             android:textColor="@color/darkGray"
             android:textSize="15sp" />
     </RelativeLayout>
+</RelativeLayout>
+
 </android.support.v4.widget.SwipeRefreshLayout>
