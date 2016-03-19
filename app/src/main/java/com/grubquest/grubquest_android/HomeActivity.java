@@ -42,6 +42,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -98,11 +99,22 @@ public class HomeActivity extends AppCompatActivity {
     private void process(int position) {
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GQConstants.WEBSITE)));
                 break;
             case 1:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.grubquest.gg")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GQConstants.FACEBOOK)));
+                break;
+            case 2:
+                String uriText = "mailto:" + GQConstants.EMAIL +
+                        "?subject=" + URLEncoder.encode("Grubquest Mobile Feedback") +
+                        "&body=" + URLEncoder.encode("Your app sucks! :^)");
+
+                Intent sendIntent = new Intent(Intent.ACTION_SENDTO).setData(Uri.parse(uriText));
+                startActivity(Intent.createChooser(sendIntent, "Email us with..."));
+                break;
+            case 3:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 /** this means logout **/
@@ -113,6 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                 exit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(exit_intent);
                 finish();
+                break;
         }
     }
 

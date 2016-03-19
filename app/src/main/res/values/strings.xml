@@ -53,14 +53,18 @@
     <string name="quest_expire_soon">Quest expiring soon!</string>
     <!--arrays-->
     <string-array name="nav_array">
-        <item>Settings</item>
         <item>Website</item>
+        <item>Like Us!</item>
+        <item>Feedback</item>
+        <item>Settings</item>
         <item>Log Out</item>
     </string-array>
 
     <array name="nav_icons">
+        <item>@drawable/blank_icon</item>
+        <item>@drawable/ic_facebook</item>
+        <item>@drawable/blank_icon</item>
         <item>@drawable/ic_settings_white_24dp</item>
-        <item>@drawable/ic_twitter</item>
-        <item>@drawable/ic_keyboard_arrow_left_white_24dp</item>>
+        <item>@drawable/ic_keyboard_arrow_left_white_24dp</item>
     </array>
 </resources>

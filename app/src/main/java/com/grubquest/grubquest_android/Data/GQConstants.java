@@ -18,6 +18,9 @@ public class GQConstants {
     };
 
     public static final long DAY = 86400000;
+    public static final String EMAIL = "feedback@grubquest.gg";
+    public static final String FACEBOOK = "https://www.facebook.com/grubquest.gg/";
+    public static final String WEBSITE = "http://www.grubquest.gg";
 
     public static final ColorFilter COLORFILTER_NEGATIVE = new ColorMatrixColorFilter(colorMatrix_Negative);
 }
