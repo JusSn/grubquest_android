@@ -26,7 +26,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.grubquest.grubquest_android.Adapters.LootViewHolder;
-import com.grubquest.grubquest_android.Application.GrubQuest;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Loot;
 

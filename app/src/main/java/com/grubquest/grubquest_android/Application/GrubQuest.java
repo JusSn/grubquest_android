@@ -15,7 +15,7 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 /**
  * Created by Derek on 1/30/2016.
  */
-public class GrubQuest extends Application {
+public class Grubquest extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

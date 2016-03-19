@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.FragmentTabHost;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
@@ -97,6 +100,9 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
+            case 1:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.grubquest.gg")));
+                break;
             default:
                 /** this means logout **/
                 Firebase ref = new Firebase(GQConstants.DATABASE);
@@ -146,6 +152,9 @@ public class HomeActivity extends AppCompatActivity {
             firebase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
+                    TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
+
                     String name;
                     if (dataSnapshot.child("summonerName").getValue() != null) {
                         name = dataSnapshot.child("summonerName").getValue().toString();
@@ -154,7 +163,6 @@ public class HomeActivity extends AppCompatActivity {
                                 dataSnapshot.child("profileIconId").getValue().toString());
 
                         /** Nav Image Stuff **/
-                        ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
                         ImageLoader img_loader = ImageLoader.getInstance();
                         img_loader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
 
@@ -163,8 +171,16 @@ public class HomeActivity extends AppCompatActivity {
                                 message, img);
                         img_loader.displayImage(string, profile);
 
-                        TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
                         profile_name.setText(name);
+                    } else {
+                        Toast t = Toast.makeText(getApplicationContext(), "Please link your\nLeague of Legends account!", Toast.LENGTH_LONG);
+                        TextView v = (TextView) t.getView().findViewById(android.R.id.message);
+                        if( v != null)
+                            v.setGravity(Gravity.CENTER);
+                        t.setGravity(Gravity.CENTER, 0, 0);
+                        t.show();
+                        profile.setImageResource(R.drawable.warning);
+                        profile_name.setText(":(");
                     }
                 }
 

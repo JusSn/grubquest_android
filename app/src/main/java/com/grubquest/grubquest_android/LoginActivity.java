@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onAuthenticationError(FirebaseError firebaseError) {
-                        Log.d("GrubQuest", firebaseError.getMessage());
-                        Log.d("GrubQuest", firebaseError.getDetails());
+                        Log.d("Grubquest", firebaseError.getMessage());
+                        Log.d("Grubquest", firebaseError.getDetails());
                         incorrect.setVisibility(View.VISIBLE);
                     }
                 });
