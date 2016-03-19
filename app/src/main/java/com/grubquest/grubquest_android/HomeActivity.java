@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         String string = String.format(Locale.US,
                                 "http://ddragon.leagueoflegends.com/cdn/%s/img/profileicon/%d.png",
-                                message, img);
+                                message, img);g
                         img_loader.displayImage(string, profile);
 
                         profile_name.setText(name);
