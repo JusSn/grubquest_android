@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //automatically goes to HomeActivity if signed in before
         if (firebase.getAuth() != null) {
+            Toast.makeText(LoginActivity.this, "FUCK", Toast.LENGTH_SHORT).show();
             Intent next = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(next);
         }

@@ -7,31 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Coupon {
-//    public String restaurantName = null;
-//            frontDescription = null,
-//            description = null,
-//            mobile_loot_background_img = null,
-//            mobile_method_icon = null,
-//            mobile_quest_icon = null;
+public class Loot {
     public Map<String, String> stringMap;
     public long expirationTime;
 
-    public Coupon(String title) {
+    public Loot(String title) {
         stringMap.put("restaurantName", title);
     }
-    public Coupon(DataSnapshot snapshot) {
+    public Loot(DataSnapshot snapshot) {
         stringMap = new HashMap<>();
         stringMap.put("restaurantName", snapshot.child("restaurant").child("name").getValue().toString());
-//        this.frontDescription = snapshot.child("frontDescription").getValue().toString();
-//        this.description = snapshot.child("description").getValue().toString();
-//        this.mobile_loot_background_img = snapshot.child("mobile_loot_background_img").getValue().toString();
-//        this.mobile_method_icon = snapshot.child("mobile_method_icon").getValue().toString();
-//        this.mobile_quest_icon
+
+        String short_name = snapshot.child("mobile_restaurant_icon").getValue().toString();
+
         for (DataSnapshot child : snapshot.getChildren()) {
             if (child.getValue() instanceof String) {
                 stringMap.put(child.getKey(), getResourceFromFirebase(child.getValue().toString()));
             }
+        }
+        if (short_name != null) {
+            stringMap.put("backgroundImg", short_name + "_loot");
         }
         expirationTime = (long) snapshot.child("expirationTime").getValue();
     }

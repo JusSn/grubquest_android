@@ -11,18 +11,19 @@
         android:layout_centerInParent="true"
         android:background="@color/white">
         <ImageView
-            android:layout_width="260dp"
-            android:layout_height="340dp"
+            android:layout_width="360dp"
+            android:layout_height="450dp"
             android:src="@color/black"
-            android:id="@+id/sample_image" />
+            android:id="@+id/coupon_image"
+            android:padding="10dp"/>
         <Button
             android:id="@+id/close_button"
-            android:layout_width="240dp"
+            android:layout_width="340dp"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/red_round_pressable"
-            android:layout_below="@id/sample_image"
-            android:layout_marginTop="15dp"
+            android:layout_below="@id/coupon_image"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:textColor="@color/white"
             android:textSize="12sp"

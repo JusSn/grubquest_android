@@ -2,12 +2,8 @@ package com.grubquest.grubquest_android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -25,12 +21,9 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
-import com.grubquest.grubquest_android.Models.Coupon;
 import com.grubquest.grubquest_android.Models.Quest;
-import com.grubquest.grubquest_android.GrubquestNotifier;
 
 import java.util.ArrayList;
 

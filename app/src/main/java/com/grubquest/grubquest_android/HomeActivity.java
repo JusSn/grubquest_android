@@ -145,26 +145,31 @@ public class HomeActivity extends AppCompatActivity {
             firebase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.child("summonerName").getValue().toString();
-                    Integer img = Integer.parseInt(
-                            dataSnapshot.child("profileIconId").getValue().toString());
+                    String name;
+                    if (dataSnapshot.child("summonerName").getValue() != null) {
+                        name = dataSnapshot.child("summonerName").getValue().toString();
 
-                    /** Nav Image Stuff **/
-                    ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
-                    ImageLoader img_loader = ImageLoader.getInstance();
-                    img_loader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
+                        Integer img = Integer.parseInt(
+                                dataSnapshot.child("profileIconId").getValue().toString());
 
-                    String string = String.format(Locale.US,
-                            "http://ddragon.leagueoflegends.com/cdn/%s/img/profileicon/%d.png",
-                            message, img);
-                    img_loader.displayImage(string, profile);
+                        /** Nav Image Stuff **/
+                        ImageView profile = (ImageView) findViewById(R.id.slide_drawer_profile_img);
+                        ImageLoader img_loader = ImageLoader.getInstance();
+                        img_loader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
 
-                    TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
-                    profile_name.setText(name);
+                        String string = String.format(Locale.US,
+                                "http://ddragon.leagueoflegends.com/cdn/%s/img/profileicon/%d.png",
+                                message, img);
+                        img_loader.displayImage(string, profile);
+
+                        TextView profile_name = (TextView) findViewById(R.id.slide_drawer_profile_text);
+                        profile_name.setText(name);
+                    }
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {}
+                public void onCancelled(FirebaseError firebaseError) {
+                }
             });
         }
     }

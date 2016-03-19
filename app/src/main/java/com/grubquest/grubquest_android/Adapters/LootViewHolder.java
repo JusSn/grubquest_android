@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class CouponViewHolder extends RecyclerView.ViewHolder {
+public class LootViewHolder extends RecyclerView.ViewHolder {
     public final Button redeemButton;
 //    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
     public Map<String, ImageView> imageViewMap;
@@ -26,14 +26,13 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
 
     private boolean expanded = false;
 
-    public CouponViewHolder(final View dataView) {
+    public LootViewHolder(final View dataView) {
         super(dataView);
         imageViewMap = new HashMap<>();
         textViewMap = new HashMap<>();
-//        companyIcon = (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon);
-//        companyImage = (ImageView) dataView.findViewById(R.id.restaurant_image);
+
         imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
-        imageViewMap.put("mobile_restaurant_img", (ImageView) dataView.findViewById(R.id.mobile_restaurant_img));
+        imageViewMap.put("backgroundImg", (ImageView) dataView.findViewById(R.id.backgroundImg));
         imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
         imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
 
@@ -42,12 +41,7 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
         //TODO: change this description to match the coupon, nOT QUEST description once that is avail on FB
         textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-//        icon1Image = (ImageView) dataView.findViewById(R.id.type_icon_1);
-//        icon2Image = (ImageView) dataView.findViewById(R.id.type_icon_2);
-//        offerInfo = (TextView) dataView.findViewById(R.id.coupon_info_text);
-//        offerSmallText = (TextView) dataView.findViewById(R.id.offer_textview);
 
-//        cancelButton = (Button) dataView.findViewById(R.id.cancel_button);
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
 
