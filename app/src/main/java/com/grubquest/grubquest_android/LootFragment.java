@@ -40,13 +40,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class LootFragment extends Fragment {
-    private ArrayList<Loot> items = new ArrayList<>();
     private DisplayMetrics displayMetrics;
-//    private PopupWindow deleteWarnPopup;
-    private PopupWindow locTurnOnPopup;
+
     private RecyclerView lootRecyclerView;
     private RelativeLayout emptyRecyclerView;
     private ViewGroup container;
+
+    private PopupWindow locTurnOnPopup;
+    //    private PopupWindow deleteWarnPopup;
+
+    private ArrayList<Loot> items = new ArrayList<>();
     private Set<String> completedQuests = new HashSet<>();
 
     @Override
@@ -67,8 +70,6 @@ public class LootFragment extends Fragment {
         Firebase userQuestsRef = new Firebase(GQConstants.DATABASE).child("lolUsers");
         String authId = userQuestsRef.getAuth().getUid();
         userQuestsRef = userQuestsRef.child(authId).child("acceptedQuests");
-//        Firebase grubQuestRef = new Firebase(GQConstants.DATABASE);
-//        auth = grubQuestRef.getAuth();
 
         final Firebase allQuestsRef = new Firebase(GQConstants.DATABASE).child("quests/LeagueOfLegends");
         LootAdapter adapter = new LootAdapter(allQuestsRef);
@@ -78,25 +79,22 @@ public class LootFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
-                if (complete)
-//                    Toast.makeText(getContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                if (complete) {
                     completedQuests.add(dataSnapshot.getKey());
                     refreshView(lootRecyclerView, allQuestsRef);
-
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
                 if (complete) {
-//                    Toast.makeText(getContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
                     completedQuests.add(dataSnapshot.getKey());
                     refreshView(lootRecyclerView, allQuestsRef);
                 }
                 else {
                     completedQuests.remove(dataSnapshot.getKey());
                     refreshView(lootRecyclerView, allQuestsRef);
-
                 }
             }
 
@@ -104,17 +102,14 @@ public class LootFragment extends Fragment {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.getKey();
                 completedQuests.remove(name);
+                refreshView(lootRecyclerView, allQuestsRef);
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
+            public void onCancelled(FirebaseError firebaseError) {}
         });
 
         final SwipeRefreshLayout lootSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.loot_swipe_layout);
@@ -131,11 +126,11 @@ public class LootFragment extends Fragment {
     /**********************************************************************************************
      * Methods
      */
-    //TODO: still not implemented, make sure to add permission on manifest as well
     private void refreshView(RecyclerView view, Firebase ref) {
         LootAdapter newAdapter = new LootAdapter(ref);
         view.setAdapter(newAdapter);
     }
+    //TODO: still not implemented, make sure to add permission on manifest as well
     public boolean locationCheck() {
         return true;
     }
@@ -145,9 +140,7 @@ public class LootFragment extends Fragment {
             return getResources().getIdentifier(name, "drawable",
                     getContext().getPackageName());
         }
-        catch (Exception e) {
-            return R.color.darkRed;
-        }
+        catch (Exception e) { return R.color.darkRed; }
     }
 
     /**********************************************************************************************
@@ -158,17 +151,9 @@ public class LootFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot questsSnapshot) {
                 items.clear();
-//                    completedQuests.clear();
 
-                for (String completedName : completedQuests) {
+                for (String completedName : completedQuests)
                     items.add(new Loot(questsSnapshot.child(completedName)));
-                }
-//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                        String name = postSnapshot.child("name").getValue().toString();
-//
-//                        //TODO:add rest of items to coupon and modify couponviewholder
-//                        items.add(new Loot(postSnapshot));
-//                    }
 
                 if (items.size() == 0) {
                     emptyRecyclerView.setVisibility(View.VISIBLE);
@@ -186,27 +171,24 @@ public class LootFragment extends Fragment {
                 Log.d("FIREBASEERROR", firebaseError.getMessage());
             }
         };
-        public LootAdapter(Firebase ref) {
-            ref.addValueEventListener(eventListener);
-        }
+
+        public LootAdapter(Firebase ref) { ref.addValueEventListener(eventListener); }
 
         @Override
         public void onBindViewHolder(LootViewHolder holder, int position) {
             final Loot loot = items.get(position);
-            Iterator tvIt = holder.textViewMap.entrySet().iterator();
-            while (tvIt.hasNext()) {
-                Map.Entry pair = (Map.Entry) tvIt.next();
-                ((TextView)pair.getValue()).setText(loot.stringMap.get(pair.getKey()));
-            }
-            Iterator ivIt = holder.imageViewMap.entrySet().iterator();
-            while (ivIt.hasNext()) {
-                Map.Entry pair = (Map.Entry) ivIt.next();
 
+            for (Map.Entry pair : holder.textViewMap.entrySet())
+                ((TextView)pair.getValue()).setText(loot.stringMap.get(pair.getKey()));
+
+            for (Map.Entry pair : holder.imageViewMap.entrySet()) {
                 String name = loot.stringMap.get(pair.getKey());
                 if (name != null && name.endsWith("white")) {
                     Drawable d = getResources().getDrawable(getDrawable(name));
-                    d.setColorFilter(GQConstants.COLORFILTER_NEGATIVE);
-                    ((ImageView) pair.getValue()).setImageDrawable(d);
+                    if (d != null) {
+                        d.setColorFilter(GQConstants.COLORFILTER_NEGATIVE);
+                        ((ImageView) pair.getValue()).setImageDrawable(d);
+                    }
                 }
                 else
                     ((ImageView) pair.getValue()).setImageResource(getDrawable(name));

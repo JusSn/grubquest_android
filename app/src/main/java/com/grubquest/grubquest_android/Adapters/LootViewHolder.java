@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 public class LootViewHolder extends RecyclerView.ViewHolder {
     public final Button redeemButton;
-//    public final ImageView companyImage, companyIcon, icon1Image, icon2Image;
     public Map<String, ImageView> imageViewMap;
     public final LinearLayout offerTextLayout;
     public final TextView couponTimer;
@@ -73,7 +72,6 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
 
     }
     public void startCardTimer(long expireTime) {
-
         new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
             public void onTick(long millisUntilFinished) {
                 couponTimer.setText(String.format(Locale.US, "%02d:%02d:%02d",

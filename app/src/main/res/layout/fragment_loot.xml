@@ -3,11 +3,11 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/loot_swipe_layout"
+    android:background="@color/lightGray"
     tools:context=".LootFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/loot_recycler_view"
-        android:background="@color/lightGray"
         android:foregroundGravity="center_horizontal"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

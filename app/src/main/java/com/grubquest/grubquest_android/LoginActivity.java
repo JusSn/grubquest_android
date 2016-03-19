@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
         //automatically goes to HomeActivity if signed in before
         if (firebase.getAuth() != null) {
-            Toast.makeText(LoginActivity.this, "FUCK", Toast.LENGTH_SHORT).show();
             Intent next = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(next);
         }
