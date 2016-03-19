@@ -12,13 +12,13 @@ import android.os.SystemClock;
  */
 //TODO: Figure out how multiple notifications interact; set up actual notification times from Firebase; check icon on phone
 public class GrubquestNotifier {
-    public static void grubquestNotify(Context context, Intent intent, String title, String message, long expireTime) {
+    public static void grubquestNotify(Context context, Intent intent, String title, String message, int resId, long expireTime) {
         PendingIntent clickIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentTitle(title)
                 .setContentIntent(clickIntent)
                 .setContentText(message)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(resId)
                 .setAutoCancel(true);
 
         Intent notificationIntent = new Intent(context, NotificationPublisher.class)

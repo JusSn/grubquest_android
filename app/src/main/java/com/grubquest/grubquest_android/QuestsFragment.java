@@ -2,8 +2,10 @@ package com.grubquest.grubquest_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -13,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 //import com.grubquest.grubquest_android.Adapters.QuestRecyclerAdapter;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -26,21 +31,30 @@ import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Quest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class QuestsFragment extends Fragment {
     private ArrayList<Quest> items = new ArrayList<>();
     private DisplayMetrics displayMetrics;
+
+    private ViewGroup container;
+
     private PopupWindow couponPopup;
     private RecyclerView questRecyclerView;
     private RelativeLayout emptyRecyclerView;
 
+    private Set<String> incompleteQuests = new HashSet<>();
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quests, container, false);
         Firebase ref = new Firebase(GQConstants.DATABASE);
         ref = ref.child("quests/LeagueOfLegends");
 
+        this.container = container;
         displayMetrics = getResources().getDisplayMetrics();
         emptyRecyclerView = (RelativeLayout) view.findViewById(R.id.quests_empty_recycler_view);
         questRecyclerView = (RecyclerView) view.findViewById(R.id.quest_recycler_view);
@@ -50,110 +64,143 @@ public class QuestsFragment extends Fragment {
         emptyRecyclerView.setVisibility(View.VISIBLE);
         questRecyclerView.setVisibility(View.GONE);
 
-        QuestAdapter adapter = new QuestAdapter(ref);
-        questRecyclerView.setAdapter(adapter);
+        Firebase userQuestsRef = new Firebase(GQConstants.DATABASE).child("lolUsers");
+        String authId = userQuestsRef.getAuth().getUid();
+        userQuestsRef = userQuestsRef.child(authId).child("acceptedQuests");
+
+        final Firebase allQuestsRef = new Firebase(GQConstants.DATABASE).child("quests/LeagueOfLegends");
+
+        refreshView(questRecyclerView, allQuestsRef);
+
+        userQuestsRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
+                if (!complete) {
+                    incompleteQuests.add(dataSnapshot.getKey());
+                    refreshView(questRecyclerView, allQuestsRef);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
+                if (!complete) {
+                    incompleteQuests.add(dataSnapshot.getKey());
+                    refreshView(questRecyclerView, allQuestsRef);
+                } else {
+                    incompleteQuests.remove(dataSnapshot.getKey());
+                    refreshView(questRecyclerView, allQuestsRef);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getKey();
+                incompleteQuests.remove(name);
+                refreshView(questRecyclerView, allQuestsRef);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        final SwipeRefreshLayout questSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.quests_swipe_layout);
+        questSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshView(questRecyclerView, allQuestsRef);
+                questSwipeLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 
     /**********************************************************************************************
      * Methods
      */
-//    public String getResourceFromFirebase(DataSnapshot quest, String child) {
-//        String[] array = quest.child(child).getValue().toString().split("/");
-//        String answer = array[array.length - 1];
-//        answer = answer.substring(0, answer.length() - 4);
-//        return answer;
-//    }
-
-    public int getDrawable(String name) {
-        return getResources().getIdentifier(name, "drawable",
-                getContext().getPackageName());
+    private void refreshView(RecyclerView view, Firebase ref) {
+        QuestAdapter newAdapter = new QuestAdapter(ref);
+        view.setAdapter(newAdapter);
     }
 
-//    public String[] getIcons(DataSnapshot quest, String[] children) {
-//        String[] array = new String[children.length];
-//
-//        for (int i = 0; i < children.length; i++) {
-//            array[i] = getResourceFromFirebase(quest, children[i]);
-//        }
-//
-//        return array;
-//    }
+    public int getDrawable(String name) {
+        try {
+            return getResources().getIdentifier(name, "drawable",
+                    getContext().getPackageName());
+        }
+        catch (Exception e) { return R.color.darkRed; }
+    }
+
 
     /**********************************************************************************************
      * Classes
      */
     public class QuestAdapter extends RecyclerView.Adapter<QuestViewHolder> {
-        public QuestAdapter(Firebase ref) {
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    items.clear();
+        public ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                items.clear();
 
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String[] array = {"mobile_quest_icon", "redeemIcon",
-                                "mobile_background_img", "mobile_restaurant_icon"};
+                for (String questName : incompleteQuests)
+                    items.add(new Quest(dataSnapshot.child(questName)));
 
-                        //String[] array = {"questTypeIcon", "redeemIcon", "backgroundImg"};
-//                        String[] icons = getIcons(snapshot, array);
-
-//                        Log.d("FUCK", "questTypeIcon: " + icons[0] +
-//                                "\nredeemIcon: " + icons[1] +
-//                                "\nbackgroundImg: " + icons[2]);
-//
-//                        items.add(new Quest(icons[0],
-//                                icons[1],
-//                                snapshot.child("savings")
-//                                        .getValue().toString(),
-//                                icons[2],
-//                                snapshot.child("frontDescription")
-//                                        .getValue().toString(),
-//                                snapshot.child("restaurant/address")
-//                                        .getValue().toString(),
-//                                icons[3]));
-                    }
-
-                    if (items.size() == 0) {
-                        emptyRecyclerView.setVisibility(View.VISIBLE);
-                        questRecyclerView.setVisibility(View.GONE);
-                    } else {
-                        emptyRecyclerView.setVisibility(View.GONE);
-                        questRecyclerView.setVisibility(View.VISIBLE);
-                    }
-
-                    notifyDataSetChanged();
+                if (items.size() == 0) {
+                    emptyRecyclerView.setVisibility(View.VISIBLE);
+                    questRecyclerView.setVisibility(View.GONE);
+                } else {
+                    emptyRecyclerView.setVisibility(View.GONE);
+                    questRecyclerView.setVisibility(View.VISIBLE);
                 }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d("FIREBASEERROR", firebaseError.getMessage());
-                }
-            });
-        }
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d("FIREBASEERROR", firebaseError.getMessage());
+            }
+        };
+
+        public QuestAdapter(Firebase ref) { ref.addValueEventListener(valueEventListener); }
 
         @Override
         public void onBindViewHolder(QuestViewHolder holder, int position) {
-            Quest quest = items.get(position);
+            final Quest quest = items.get(position);
 
-//            holder.companyIcon.setImageDrawable(ContextCompat
-//                    .getDrawable(getContext(), getDrawable(quest.restaurant_icon)));
-//            holder.questImage.setImageDrawable(ContextCompat
-//                    .getDrawable(getContext(), getDrawable(quest.quest_image)));
-//            holder.companyText.setText(quest.restaurant);
-//            holder.icon1Image.setImageDrawable(ContextCompat
-//                    .getDrawable(getContext(), getDrawable(quest.icon1)));
-//            holder.icon2Image.setImageDrawable(ContextCompat
-//                    .getDrawable(getContext(), getDrawable(quest.icon2)));
-//            holder.questInfo.setText(quest.quest_info);
-//            holder.offerSmallText.setText(quest.offer);
+            // TODO: 3/19/16 nullchecks on loot too
+            for (Map.Entry pair : holder.textViewMap.entrySet()) {
+                TextView t = (TextView) pair.getValue();
+                if (t != null)
+                    t.setText(quest.stringMap.get(pair.getKey()));
+            }
 
-            //change name of stuff from items
+            for (Map.Entry pair : holder.imageViewMap.entrySet()) {
+                ImageView i = (ImageView) pair.getValue();
+                String name = quest.stringMap.get(pair.getKey());
+                if (i != null && name != null)
+                    i.setImageResource(getDrawable(name));
+            }
 
-            long expireDate = 10000; //System.currentTimeMillis - expire date of quest
-            String questName = "Ayy fucking lmao";
-            holder.startCardTimer(expireDate); //System.currentTimeMillis - expire date of quest
-            GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
-                    LoginActivity.class), getString(R.string.quest_expire_soon), questName, expireDate);
+            // TODO: 3/19/16 polish notification behavior
+            long expireTimeLeft = quest.expirationTime - System.currentTimeMillis();
+            String restName = quest.stringMap.get("title");
+            holder.startCardTimer(expireTimeLeft);
+            GrubquestNotifier.grubquestNotify(
+                    getContext(),
+                    new Intent(getContext(),
+                    LoginActivity.class),
+                    getString(R.string.quest_expire_soon),
+                    restName,
+                    R.drawable.quest_notifications,
+                    GQConstants.DAY - (GQConstants.DAY * 3)); //three days prior to quest expiration
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,13 +209,16 @@ public class QuestsFragment extends Fragment {
                             .getBaseContext()
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View layout = layoutInflater.inflate(R.layout.sample_coupon_layout,
-                            null, false);
+                            container, false);
 
                     couponPopup = new PopupWindow(layout, displayMetrics.widthPixels,
                             displayMetrics.heightPixels, true);
                     couponPopup.setContentView(layout);
                     couponPopup.showAtLocation(questRecyclerView, Gravity.CENTER, 0,
                             (int) (25 * displayMetrics.density));
+
+                    ImageView coupon_image = (ImageView) layout.findViewById(R.id.coupon_image);
+                    coupon_image.setImageResource(getDrawable(quest.stringMap.get("voidCoupon")));
 
                     Button closeButton = (Button) layout.findViewById(R.id.close_button);
                     closeButton.setOnClickListener(new View.OnClickListener() {

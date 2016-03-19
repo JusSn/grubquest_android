@@ -17,18 +17,17 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LootViewHolder extends RecyclerView.ViewHolder {
+    public Map<String, ImageView> imageViewMap = new HashMap<>();
+    public Map<String, TextView> textViewMap = new HashMap<>();
+
     public final Button redeemButton;
-    public Map<String, ImageView> imageViewMap;
     public final LinearLayout offerTextLayout;
     public final TextView couponTimer;
-    public Map<String, TextView> textViewMap;
 
     private boolean expanded = false;
 
     public LootViewHolder(final View dataView) {
         super(dataView);
-        imageViewMap = new HashMap<>();
-        textViewMap = new HashMap<>();
 
         imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
         imageViewMap.put("backgroundImg", (ImageView) dataView.findViewById(R.id.backgroundImg));
@@ -48,13 +47,14 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
         offerTextLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                 if (!expanded) {
                     expanded = true;
-                    ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     offerInfo.setLayoutParams(params);
                 } else {
-                    offerInfo.performClick();
+                    params.height = 0;
+                    offerInfo.setLayoutParams(params);
                     expanded = false;
                 }
             }

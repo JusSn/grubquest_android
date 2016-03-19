@@ -17,5 +17,7 @@ public class GQConstants {
             0, 0, 0, 1.0f, 0 //alpha
     };
 
+    public static final long DAY = 86400000;
+
     public static final ColorFilter COLORFILTER_NEGATIVE = new ColorMatrixColorFilter(colorMatrix_Negative);
 }

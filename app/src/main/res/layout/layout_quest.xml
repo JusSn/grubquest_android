@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@color/darkGray"
-            android:id="@+id/quest_image" />
+            android:scaleType="centerCrop"
+            android:id="@+id/mobile_background_img" />
         <LinearLayout
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
@@ -63,19 +64,21 @@
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     android:text="@string/test_offer"
-                    android:id="@+id/frontDescription"
+                    android:id="@+id/title"
                     android:layout_below="@+id/restaurantName"
                     android:layout_marginTop="5dp"
                     android:clickable="false" />
                 <TextView
                     android:id="@id/time_remain_textview"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:text="@string/test_time"
                     android:textColor="@android:color/white"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignBottom="@+id/frontDescription" />
+                    android:layout_alignBottom="@+id/title" />
                 <ImageView
                     android:id="@id/mobile_method_icon"
                     android:layout_alignBottom="@id/restaurantName"
@@ -93,10 +96,7 @@
                     android:layout_width="15dp"
                     android:src="@drawable/duo_quest_white" />
 
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spinner" />
+
             </RelativeLayout>
 
         </LinearLayout>

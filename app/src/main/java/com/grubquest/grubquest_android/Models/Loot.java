@@ -8,28 +8,24 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Loot {
-    public Map<String, String> stringMap;
+    public Map<String, String> stringMap = new HashMap<>();
     public long expirationTime;
 
-    public Loot(String title) {
-        stringMap.put("restaurantName", title);
-    }
     public Loot(DataSnapshot snapshot) {
-        stringMap = new HashMap<>();
         stringMap.put("restaurantName", snapshot.child("restaurant").child("name").getValue().toString());
 
         String short_name = snapshot.child("mobile_restaurant_icon").getValue().toString();
 
-        for (DataSnapshot child : snapshot.getChildren()) {
-            if (child.getValue() instanceof String) {
+        for (DataSnapshot child : snapshot.getChildren())
+            if (child.getValue() instanceof String)
                 stringMap.put(child.getKey(), getResourceFromFirebase(child.getValue().toString()));
-            }
-        }
+
         if (short_name != null) {
             stringMap.put("backgroundImg", short_name + "_loot");
         }
         expirationTime = (long) snapshot.child("expirationTime").getValue();
     }
+
     public String getResourceFromFirebase(String fullPath) {
         if (fullPath != null) {
             String[] array = fullPath.split(Pattern.quote("/"));
@@ -40,15 +36,4 @@ public class Loot {
         }
         return null;
     }
-
-    public String[] getIcons(DataSnapshot quest, String[] children) {
-        String[] array = new String[children.length];
-
-        for (int i = 0; i < children.length; i++) {
-            array[i] = getResourceFromFirebase(children[i]);
-        }
-
-        return array;
-    }
-
 }

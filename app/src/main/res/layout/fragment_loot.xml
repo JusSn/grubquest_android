@@ -30,7 +30,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="170dp"
             android:layout_width="100dp"
-            android:src="@drawable/duo_filled" />
+            android:src="@drawable/empty_loot_emblem" />
 
         <TextView
             android:id="@+id/empty_screen_text_view"

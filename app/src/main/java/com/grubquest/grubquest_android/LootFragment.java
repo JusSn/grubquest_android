@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,22 +19,19 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.client.AuthData;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.android.gms.auth.api.Auth;
 import com.grubquest.grubquest_android.Adapters.LootViewHolder;
+import com.grubquest.grubquest_android.Application.GrubQuest;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Loot;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,8 +68,8 @@ public class LootFragment extends Fragment {
         userQuestsRef = userQuestsRef.child(authId).child("acceptedQuests");
 
         final Firebase allQuestsRef = new Firebase(GQConstants.DATABASE).child("quests/LeagueOfLegends");
-        LootAdapter adapter = new LootAdapter(allQuestsRef);
-        lootRecyclerView.setAdapter(adapter);
+
+        refreshView(lootRecyclerView, allQuestsRef);
 
         userQuestsRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -197,8 +193,14 @@ public class LootFragment extends Fragment {
             long expireTimeLeft = loot.expirationTime - System.currentTimeMillis();
             String restName = loot.stringMap.get("frontDescription");
             holder.startCardTimer(expireTimeLeft);
-            GrubquestNotifier.grubquestNotify(getContext(), new Intent(getContext(),
-                    LoginActivity.class), getString(R.string.loot_expire_soon), restName, expireTimeLeft - 86400000); //One day prior to loot expiration
+            GrubquestNotifier.grubquestNotify(
+                    getContext(),
+                    new Intent(getContext(),
+                    LoginActivity.class),
+                    getString(R.string.loot_expire_soon),
+                    restName,
+                    R.drawable.loot_notifications,
+                    expireTimeLeft - GQConstants.DAY); //One day prior to loot expiration
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -229,7 +231,7 @@ public class LootFragment extends Fragment {
                                 .getBaseContext()
                                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         View layout = layoutInflater.inflate(R.layout.sample_coupon_layout,
-                                null, false);
+                                container, false);
 
                         final PopupWindow couponPopup = new PopupWindow(layout, displayMetrics.widthPixels,
                                 displayMetrics.heightPixels, true);
@@ -282,7 +284,7 @@ public class LootFragment extends Fragment {
         @Override
         public LootViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_coupon, parent, false);
+                    .inflate(R.layout.layout_loot, parent, false);
             return new LootViewHolder(view);
         }
 
