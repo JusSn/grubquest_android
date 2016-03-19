@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -46,7 +48,6 @@ public class LootFragment extends Fragment {
     private RelativeLayout emptyRecyclerView;
     private ViewGroup container;
     private Set<String> completedQuests = new HashSet<>();
-    private String authId;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -64,10 +65,14 @@ public class LootFragment extends Fragment {
         lootRecyclerView.setVisibility(View.GONE);
 
         Firebase userQuestsRef = new Firebase(GQConstants.DATABASE).child("lolUsers");
-        authId = userQuestsRef.getAuth().getUid();
+        String authId = userQuestsRef.getAuth().getUid();
         userQuestsRef = userQuestsRef.child(authId).child("acceptedQuests");
 //        Firebase grubQuestRef = new Firebase(GQConstants.DATABASE);
 //        auth = grubQuestRef.getAuth();
+
+        final Firebase allQuestsRef = new Firebase(GQConstants.DATABASE).child("quests/LeagueOfLegends");
+        LootAdapter adapter = new LootAdapter(allQuestsRef);
+        lootRecyclerView.setAdapter(adapter);
 
         userQuestsRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -76,16 +81,23 @@ public class LootFragment extends Fragment {
                 if (complete)
 //                    Toast.makeText(getContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
                     completedQuests.add(dataSnapshot.getKey());
+                    refreshView(lootRecyclerView, allQuestsRef);
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
-                if (complete)
+                if (complete) {
 //                    Toast.makeText(getContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
                     completedQuests.add(dataSnapshot.getKey());
-                else
+                    refreshView(lootRecyclerView, allQuestsRef);
+                }
+                else {
                     completedQuests.remove(dataSnapshot.getKey());
+                    refreshView(lootRecyclerView, allQuestsRef);
+
+                }
             }
 
             @Override
@@ -105,9 +117,14 @@ public class LootFragment extends Fragment {
             }
         });
 
-        Firebase allQuestsRef = new Firebase(GQConstants.DATABASE).child("quests/LeagueOfLegends");
-        LootAdapter adapter = new LootAdapter(allQuestsRef);
-        lootRecyclerView.setAdapter(adapter);
+        final SwipeRefreshLayout lootSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.loot_swipe_layout);
+        lootSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshView(lootRecyclerView, allQuestsRef);
+                lootSwipeLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 
@@ -115,6 +132,10 @@ public class LootFragment extends Fragment {
      * Methods
      */
     //TODO: still not implemented, make sure to add permission on manifest as well
+    private void refreshView(RecyclerView view, Firebase ref) {
+        LootAdapter newAdapter = new LootAdapter(ref);
+        view.setAdapter(newAdapter);
+    }
     public boolean locationCheck() {
         return true;
     }
@@ -133,17 +154,15 @@ public class LootFragment extends Fragment {
      * Classes
      */
     public class LootAdapter extends RecyclerView.Adapter<LootViewHolder> {
-        public LootAdapter(Firebase ref) {
-//            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot questsSnapshot) {
-                    items.clear();
+        public ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot questsSnapshot) {
+                items.clear();
 //                    completedQuests.clear();
 
-                    for (String completedName : completedQuests) {
-                        items.add(new Loot(questsSnapshot.child(completedName)));
-                    }
+                for (String completedName : completedQuests) {
+                    items.add(new Loot(questsSnapshot.child(completedName)));
+                }
 //                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 //                        String name = postSnapshot.child("name").getValue().toString();
 //
@@ -151,22 +170,24 @@ public class LootFragment extends Fragment {
 //                        items.add(new Loot(postSnapshot));
 //                    }
 
-                    if (items.size() == 0) {
-                        emptyRecyclerView.setVisibility(View.VISIBLE);
-                        lootRecyclerView.setVisibility(View.GONE);
-                    } else {
-                        emptyRecyclerView.setVisibility(View.GONE);
-                        lootRecyclerView.setVisibility(View.VISIBLE);
-                    }
-
-                    notifyDataSetChanged();
+                if (items.size() == 0) {
+                    emptyRecyclerView.setVisibility(View.VISIBLE);
+                    lootRecyclerView.setVisibility(View.GONE);
+                } else {
+                    emptyRecyclerView.setVisibility(View.GONE);
+                    lootRecyclerView.setVisibility(View.VISIBLE);
                 }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d("FIREBASEERROR", firebaseError.getMessage());
-                }
-            });
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d("FIREBASEERROR", firebaseError.getMessage());
+            }
+        };
+        public LootAdapter(Firebase ref) {
+            ref.addValueEventListener(eventListener);
         }
 
         @Override
@@ -190,10 +211,6 @@ public class LootFragment extends Fragment {
                 else
                     ((ImageView) pair.getValue()).setImageResource(getDrawable(name));
             }
-            //TODO: figure out wtf we're gonna do with all these different colored icons with ambiguous fucking names
-
-
-            //TODO: change data of rest of stuff
             //TODO: for some reason timer is being set across all cards when only the last loot had a valid expiration date, not sure if I'm going insane. Maybe move startTimer() to this class instead of viewHolder
             long expireTimeLeft = loot.expirationTime - System.currentTimeMillis();
             String restName = loot.stringMap.get("frontDescription");
