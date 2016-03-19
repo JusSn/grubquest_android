@@ -22,7 +22,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
     public Map<String, ImageView> imageViewMap = new HashMap<>();
     public Map<String, TextView> textViewMap = new HashMap<>();
 
-    public final TextView questTimer, questInfo;
+    public final TextView questTimer, description;
     public final ImageView chestIcon;
     public LinearLayout questImageLayout;
 
@@ -41,7 +41,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         textViewMap.put("title", (TextView) dataView.findViewById(R.id.title));
 
         questTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
-        questInfo = (TextView) dataView.findViewById(R.id.quest_info_text);
+        description = (TextView) dataView.findViewById(R.id.description);
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
         questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
@@ -49,25 +49,26 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         questImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = questInfo.getLayoutParams();
+                ViewGroup.LayoutParams params = description.getLayoutParams();
                 if (!expanded) {
                     expanded = true;
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    questInfo.setLayoutParams(params);
+                    description.setLayoutParams(params);
                 } else {
                     params.height = 0;
-                    questInfo.setLayoutParams(params);
+                    description.setLayoutParams(params);
                     expanded = false;
                 }
             }
         });
 
-        questInfo.setOnClickListener(new View.OnClickListener() {
+        description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = questInfo.getLayoutParams();
+                ViewGroup.LayoutParams params = description.getLayoutParams();
                 params.height = 0;
-                questInfo.setLayoutParams(params);
+                description.setLayoutParams(params);
+                expanded = false;
             }
         });
     }

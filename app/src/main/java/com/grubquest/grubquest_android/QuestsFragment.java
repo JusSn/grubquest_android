@@ -176,6 +176,7 @@ public class QuestsFragment extends Fragment {
             final Quest quest = items.get(position);
 
             // TODO: 3/19/16 nullchecks on loot too
+            // TODO: 3/19/16 URGENT: QUEST PROGRESS DISPLAY
             for (Map.Entry pair : holder.textViewMap.entrySet()) {
                 TextView t = (TextView) pair.getValue();
                 if (t != null)

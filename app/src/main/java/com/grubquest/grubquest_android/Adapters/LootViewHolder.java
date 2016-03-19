@@ -66,6 +66,7 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
                 ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
                 params.height = 0;
                 offerInfo.setLayoutParams(params);
+                expanded = false;
             }
         });
 
