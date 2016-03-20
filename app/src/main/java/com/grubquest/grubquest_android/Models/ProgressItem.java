@@ -7,11 +7,13 @@ import java.util.Map;
  * Created by Justin on 3/20/16.
  */
 public class ProgressItem {
-    private Map<String, String> statMap = new HashMap<>();
-    public String statDisplayName;
-    public int progress;
-
-    public ProgressItem(String statKey) {
-        statDisplayName = statMap.get(statKey);
+    public String stat;
+    public long highest;
+    public long max;
+    public ProgressItem (String s, long h, long m) {
+        stat = s;
+        highest = h;
+        max = m;
     }
+
 }

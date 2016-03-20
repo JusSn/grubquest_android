@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
@@ -21,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class QuestViewHolder extends RecyclerView.ViewHolder {
     public Map<String, ImageView> imageViewMap = new HashMap<>();
     public Map<String, TextView> textViewMap = new HashMap<>();
+
+    public ListView progressView;
 
     public final TextView questTimer, description;
     public final ImageView chestIcon;
@@ -45,6 +48,8 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
         questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
+
+        progressView = (ListView) dataView.findViewById(R.id.progress_list);
 
         questImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override

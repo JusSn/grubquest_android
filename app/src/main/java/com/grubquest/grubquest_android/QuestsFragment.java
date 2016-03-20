@@ -2,7 +2,6 @@ package com.grubquest.grubquest_android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +27,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.grubquest.grubquest_android.Adapters.ProgressListAdapter;
 import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.ProgressItem;
@@ -40,7 +41,7 @@ import java.util.Set;
 
 public class QuestsFragment extends Fragment {
     private ArrayList<Quest> items = new ArrayList<>();
-    private Map<String, Map<String, Integer>> userProgressMap = new HashMap<>();
+    private Map<String, Map<String, Long>> userProgressMap = new HashMap<>();
     private DisplayMetrics displayMetrics;
 
     private ViewGroup container;
@@ -79,7 +80,7 @@ public class QuestsFragment extends Fragment {
                 String questName = dataSnapshot.getKey();
                 incompleteQuests.add(questName);
                 try {
-                    Map<String, Integer> progress = (Map<String, Integer>) dataSnapshot.child("progress").getValue();
+                    Map<String, Long> progress = dataSnapshot.child("progress").getValue(Map.class);
                     userProgressMap.put(questName, progress);
                 } catch (Exception e) {
                     Toast.makeText(getContext(), questName + ": parameter error!", Toast.LENGTH_SHORT).show();
@@ -155,11 +156,13 @@ public class QuestsFragment extends Fragment {
     public class QuestAdapter extends RecyclerView.Adapter<QuestViewHolder> {
         public ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
+            // TODO: 3/20/16 try one time listener to get quest metadata
             public void onDataChange(DataSnapshot dataSnapshot) {
                 items.clear();
 
-                for (String questName : incompleteQuests)
-                    items.add(new Quest(dataSnapshot.child(questName)));
+                for (String questName : incompleteQuests) {
+                    items.add(new Quest(dataSnapshot.child(questName), userProgressMap.get(questName)));
+                }
 
                 if (items.size() == 0) {
                     emptyRecyclerView.setVisibility(View.VISIBLE);
@@ -211,6 +214,12 @@ public class QuestsFragment extends Fragment {
                     restName,
                     R.drawable.quest_notifications,
                     GQConstants.DAY - (GQConstants.DAY * 3)); //three days prior to quest expiration
+
+            /** Set current quest progress**/
+
+            ProgressListAdapter adapter = new ProgressListAdapter(getContext(), quest.progressList);
+            holder.progressView.setAdapter(adapter);
+
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
