@@ -12,7 +12,10 @@ public class Loot {
     public long expirationTime;
 
     public Loot(DataSnapshot snapshot) {
-        stringMap.put("restaurantName", snapshot.child("restaurant").child("name").getValue().toString());
+        DataSnapshot o = snapshot.child("restaurant").child("name");
+        if (o.exists()) {
+            stringMap.put("restaurantName", o.getValue().toString());
+        }
 
         String short_name = snapshot.child("mobile_restaurant_icon").getValue().toString();
 

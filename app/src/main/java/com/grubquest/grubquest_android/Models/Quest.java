@@ -11,7 +11,10 @@ public class Quest {
     public long expirationTime;
 
     public Quest(DataSnapshot snapshot) {
-        stringMap.put("restaurantName", snapshot.child("restaurant").child("name").getValue().toString());
+        DataSnapshot o = snapshot.child("restaurant").child("name");
+        if (o.exists()) {
+            stringMap.put("restaurantName", o.getValue().toString());
+        }
 
         //// TODO: 3/19/16 recurse into children to get strings
         for (DataSnapshot child : snapshot.getChildren())

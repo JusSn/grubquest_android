@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:src="@color/darkGray"
             android:scaleType="centerCrop"
+            android:tint="@color/grayMask"
             android:id="@+id/mobile_background_img" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,9 +119,7 @@
         android:layout_height="40dp"
         android:background="@color/graySideBar"
         android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="7.5dp"
-        android:paddingTop="7.5dp">
+        android:paddingEnd="5dp">
         <ImageView
             android:layout_width="35dp"
             android:layout_height="25dp"
@@ -130,33 +129,16 @@
             android:background="@drawable/red_round_pressable"
             android:clickable="true"
             android:scaleType="fitCenter"
-            android:padding="2dp" />
-        <TextView
-            android:id="@+id/progressbar_text"
-            android:gravity="end"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:text="@string/wins"
-            android:textColor="@color/white"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"/>
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="7dp"
-            android:id="@+id/progressBar"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/progressbar_text"
-            android:layout_toLeftOf="@+id/chest_icon"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:progress="12"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/quest_progressbar" />
+            android:padding="2dp" />
+        <ListView
+            android:id="@+id/progress_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/chest_icon">
 
+        </ListView>
 
     </RelativeLayout>
 </LinearLayout>

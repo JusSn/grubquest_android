@@ -56,19 +56,18 @@
                 android:contentDescription="@string/nothing"
                 android:layout_centerHorizontal="true"
                 android:layout_height="160dp"
-                android:layout_width="240dp"
+                android:layout_width="300dp"
                 android:scaleType="centerCrop"
                 android:tint="#88000000"/>
             <TextView
                 android:id="@+id/slide_drawer_profile_text"
                 android:layout_alignBottom="@id/slide_drawer_profile_img"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="18dp"
                 android:text="@string/karmicdemon"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <!--<View-->
@@ -78,10 +77,8 @@
 
         <ListView
             android:id="@+id/list_slider_menu"
-            android:background="@color/themePink"
+            android:background="@color/themeRed"
             android:choiceMode="singleChoice"
-            android:divider="@color/black"
-            android:dividerHeight="0dp"
             android:listSelector="@drawable/red_rect_pressable"
             android:layout_height="match_parent"
             android:layout_width="match_parent">

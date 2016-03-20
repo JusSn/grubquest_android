@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import com.grubquest.grubquest_android.Adapters.QuestRecyclerAdapter;
 import com.firebase.client.ChildEventListener;
@@ -28,15 +29,18 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
+import com.grubquest.grubquest_android.Models.ProgressItem;
 import com.grubquest.grubquest_android.Models.Quest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class QuestsFragment extends Fragment {
     private ArrayList<Quest> items = new ArrayList<>();
+    private Map<String, Map<String, Integer>> userProgressMap = new HashMap<>();
     private DisplayMetrics displayMetrics;
 
     private ViewGroup container;
@@ -71,11 +75,22 @@ public class QuestsFragment extends Fragment {
         refreshView(questRecyclerView, allQuestsRef);
 
         userQuestsRef.addChildEventListener(new ChildEventListener() {
+            private void trackQuest(DataSnapshot dataSnapshot) {
+                String questName = dataSnapshot.getKey();
+                incompleteQuests.add(questName);
+                try {
+                    Map<String, Integer> progress = (Map<String, Integer>) dataSnapshot.child("progress").getValue();
+                    userProgressMap.put(questName, progress);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), questName + ": parameter error!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
-                if (!complete) {
-                    incompleteQuests.add(dataSnapshot.getKey());
+                if (complete != null && !complete) {
+                    trackQuest(dataSnapshot);
                     refreshView(questRecyclerView, allQuestsRef);
                 }
             }
@@ -83,8 +98,8 @@ public class QuestsFragment extends Fragment {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Boolean complete = dataSnapshot.child("completed").getValue(Boolean.class);
-                if (!complete) {
-                    incompleteQuests.add(dataSnapshot.getKey());
+                if (complete != null && !complete) {
+                    trackQuest(dataSnapshot);
                     refreshView(questRecyclerView, allQuestsRef);
                 } else {
                     incompleteQuests.remove(dataSnapshot.getKey());
@@ -100,14 +115,10 @@ public class QuestsFragment extends Fragment {
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
+            public void onCancelled(FirebaseError firebaseError) { }
         });
 
         final SwipeRefreshLayout questSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.quests_swipe_layout);
@@ -195,7 +206,7 @@ public class QuestsFragment extends Fragment {
             GrubquestNotifier.grubquestNotify(
                     getContext(),
                     new Intent(getContext(),
-                    LoginActivity.class),
+                            LoginActivity.class),
                     getString(R.string.quest_expire_soon),
                     restName,
                     R.drawable.quest_notifications,

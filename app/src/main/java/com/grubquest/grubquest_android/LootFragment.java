@@ -146,7 +146,7 @@ public class LootFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot questsSnapshot) {
                 items.clear();
-
+                // TODO: 3/20/16 ensure that if quests disappear that they are removed from inventory and app does not crash
                 for (String completedName : completedQuests)
                     items.add(new Loot(questsSnapshot.child(completedName)));
 

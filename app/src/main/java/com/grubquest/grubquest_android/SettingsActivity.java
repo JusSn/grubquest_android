@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
@@ -20,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Toast.makeText(SettingsActivity.this, "Toggles coming soon!", Toast.LENGTH_SHORT).show();
 
         android.app.ActionBar ab = getActionBar();
         if (ab != null)

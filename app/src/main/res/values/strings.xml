@@ -48,7 +48,7 @@
     <string name="loot_expire_soon">Loot expiring soon!</string>
 
     <!--strings for quest layout-->
-    <string name="wins">WINS</string>
+    <string name="wins">STAT</string>
     <string name="close">Close</string>
     <string name="quest_expire_soon">Quest expiring soon!</string>
     <!--arrays-->
@@ -61,10 +61,10 @@
     </string-array>
 
     <array name="nav_icons">
-        <item>@drawable/blank_icon</item>
+        <item>@drawable/web_icon</item>
         <item>@drawable/ic_facebook</item>
-        <item>@drawable/blank_icon</item>
+        <item>@android:drawable/ic_dialog_email</item>
         <item>@drawable/ic_settings_white_24dp</item>
-        <item>@drawable/ic_keyboard_arrow_left_white_24dp</item>
+        <item>@drawable/logout_icon</item>
     </array>
 </resources>
