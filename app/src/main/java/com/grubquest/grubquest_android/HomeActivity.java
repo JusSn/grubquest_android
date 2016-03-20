@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.addTab(setIndicator(this, tabHost.newTabSpec("Quests"),
                 R.drawable.quest_icon, "Quests"), QuestsFragment.class, null);
 
+        /** Fancy pressable tabs and indicators **/
         tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
         tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
 
