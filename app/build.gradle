@@ -1,9 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+        config {
+            keyAlias 'GQAndroidKey'
+            keyPassword 'grubquest!!'
+            storeFile file('/Users/Justin/Google Drive/Grubquest/Mobile/Release/keystore.jks')
+            storePassword 'grubquest!'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.grubquest.grubquest_android"
         minSdkVersion 17
@@ -14,14 +24,15 @@ android {
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
     }
-
     buildTypes {
         release {
+            debuggable false
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
         }
     }
-
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
