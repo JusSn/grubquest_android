@@ -1,12 +1,10 @@
 package com.grubquest.grubquest_android;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +27,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.grubquest.grubquest_android.Adapters.NavDrawerListAdapter;
+import com.grubquest.grubquest_android.Utility.NavDrawerListAdapter;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.NavDrawerItem;
 import com.nostra13.universalimageloader.core.ImageLoader;

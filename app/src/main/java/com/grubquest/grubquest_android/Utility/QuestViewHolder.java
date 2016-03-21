@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android.Adapters;
+package com.grubquest.grubquest_android.Utility;
 
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
     public Map<String, ImageView> imageViewMap = new HashMap<>();
     public Map<String, TextView> textViewMap = new HashMap<>();
 
-    public ListView progressView;
+    public ListView progressListView;
 
     public final TextView questTimer, description;
     public final ImageView chestIcon;
@@ -34,10 +34,10 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
     public QuestViewHolder(final View dataView) {
         super(dataView);
 
-        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
-        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
-        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
-        imageViewMap.put("mobile_background_img", (ImageView) dataView.findViewById(R.id.mobile_background_img));
+        imageViewMap.put("restaurantCodeName", (ImageView) dataView.findViewById(R.id.restaurantIcon));
+        imageViewMap.put("isDelivery", (ImageView) dataView.findViewById(R.id.isDelivery));
+        imageViewMap.put("partySize", (ImageView) dataView.findViewById(R.id.partySize));
+        imageViewMap.put("name", (ImageView) dataView.findViewById(R.id.questName));
 
         textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
         textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
@@ -47,9 +47,9 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         description = (TextView) dataView.findViewById(R.id.description);
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
-        questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_text_layout);
+        questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_image_layout);
 
-        progressView = (ListView) dataView.findViewById(R.id.progress_list);
+        progressListView = (ListView) dataView.findViewById(R.id.progress_list);
 
         questImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +57,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
                 ViewGroup.LayoutParams params = description.getLayoutParams();
                 if (!expanded) {
                     expanded = true;
+
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     description.setLayoutParams(params);
                 } else {
@@ -64,16 +65,6 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
                     description.setLayoutParams(params);
                     expanded = false;
                 }
-            }
-        });
-
-        description.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = description.getLayoutParams();
-                params.height = 0;
-                description.setLayoutParams(params);
-                expanded = false;
             }
         });
     }

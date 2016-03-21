@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android.Adapters;
+package com.grubquest.grubquest_android.Utility;
 
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
@@ -29,15 +29,15 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
     public LootViewHolder(final View dataView) {
         super(dataView);
 
-        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.mobile_restaurant_icon));
+        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.restaurantIcon));
         imageViewMap.put("backgroundImg", (ImageView) dataView.findViewById(R.id.backgroundImg));
-        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.mobile_method_icon));
-        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.mobile_quest_icon));
+        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.isDelivery));
+        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.partySize));
 
         textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
         textViewMap.put("frontDescription", (TextView) dataView.findViewById(R.id.frontDescription));
         //TODO: change this description to match the coupon, nOT QUEST description once that is avail on FB
-        textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
+        textViewMap.put("lootDescription", (TextView) dataView.findViewById(R.id.description));
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
 
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);

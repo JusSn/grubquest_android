@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android;
+package com.grubquest.grubquest_android.Utility;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
+
+import com.grubquest.grubquest_android.R;
 
 /**
  * Created by Justin on 3/15/16.

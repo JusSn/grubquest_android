@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android.Adapters;
+package com.grubquest.grubquest_android.Utility;
 
 import android.app.Activity;
 import android.content.Context;

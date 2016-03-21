@@ -1,4 +1,4 @@
-package com.grubquest.grubquest_android;
+package com.grubquest.grubquest_android.Utility;
 
 /**
  * Created by Justin on 3/15/16.

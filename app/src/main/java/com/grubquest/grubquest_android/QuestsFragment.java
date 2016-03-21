@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,10 +27,10 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.grubquest.grubquest_android.Adapters.ProgressListAdapter;
-import com.grubquest.grubquest_android.Adapters.QuestViewHolder;
+import com.grubquest.grubquest_android.Utility.GrubquestNotifier;
+import com.grubquest.grubquest_android.Utility.ProgressListAdapter;
+import com.grubquest.grubquest_android.Utility.QuestViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
-import com.grubquest.grubquest_android.Models.ProgressItem;
 import com.grubquest.grubquest_android.Models.Quest;
 
 import java.util.ArrayList;
@@ -116,20 +116,14 @@ public class QuestsFragment extends Fragment {
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) { }
-        });
-
-        final SwipeRefreshLayout questSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.quests_swipe_layout);
-        questSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshView(questRecyclerView, allQuestsRef);
-                questSwipeLayout.setRefreshing(false);
+            public void onCancelled(FirebaseError firebaseError) {
             }
         });
+
         return view;
     }
 
@@ -192,7 +186,7 @@ public class QuestsFragment extends Fragment {
             for (Map.Entry pair : holder.textViewMap.entrySet()) {
                 TextView t = (TextView) pair.getValue();
                 if (t != null)
-                    t.setText(quest.stringMap.get(pair.getKey()));
+                    t.setText(Html.fromHtml(quest.stringMap.get(pair.getKey())));
             }
 
             for (Map.Entry pair : holder.imageViewMap.entrySet()) {
@@ -213,12 +207,12 @@ public class QuestsFragment extends Fragment {
                     getString(R.string.quest_expire_soon),
                     restName,
                     R.drawable.quest_notifications,
-                    GQConstants.DAY - (GQConstants.DAY * 3)); //three days prior to quest expiration
+                    GQConstants.DAY * 3 / 4); //three days prior to quest expiration
 
             /** Set current quest progress**/
 
             ProgressListAdapter adapter = new ProgressListAdapter(getContext(), quest.progressList);
-            holder.progressView.setAdapter(adapter);
+            holder.progressListView.setAdapter(adapter);
 
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {

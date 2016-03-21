@@ -25,7 +25,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.grubquest.grubquest_android.Adapters.LootViewHolder;
+import com.grubquest.grubquest_android.Utility.GrubquestNotifier;
+import com.grubquest.grubquest_android.Utility.LootViewHolder;
 import com.grubquest.grubquest_android.Data.GQConstants;
 import com.grubquest.grubquest_android.Models.Loot;
 
@@ -195,11 +196,11 @@ public class LootFragment extends Fragment {
             GrubquestNotifier.grubquestNotify(
                     getContext(),
                     new Intent(getContext(),
-                    LoginActivity.class),
+                            LoginActivity.class),
                     getString(R.string.loot_expire_soon),
                     restName,
                     R.drawable.loot_notifications,
-                    expireTimeLeft - GQConstants.DAY); //One day prior to loot expiration
+                    expireTimeLeft * 3 / 4); // 25% time left
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override

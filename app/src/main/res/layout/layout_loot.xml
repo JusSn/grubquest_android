@@ -55,7 +55,7 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:id="@+id/mobile_restaurant_icon"
+            android:id="@+id/restaurantIcon"
             android:padding="7dp"
             android:src="@android:color/black"
             android:clickable="true" />
@@ -105,9 +105,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/mobile_method_icon"
+                android:id="@+id/isDelivery"
 
-                android:src="@drawable/solo_filled"
+                android:src="@drawable/warning_icon"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"/>
@@ -115,9 +115,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/mobile_quest_icon"
+                android:id="@+id/partySize"
 
-                android:src="@drawable/solo_filled"
+                android:src="@drawable/warning_icon"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"/>
@@ -132,6 +132,7 @@
         android:textColor="@android:color/white"
         android:background="@color/graySideBar"
         android:textSize="16sp"
+        android:autoLink="all"
         android:text="@string/coupon_info_test"
         android:singleLine="false"
         android:textAlignment="center"

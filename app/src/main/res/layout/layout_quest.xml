@@ -17,21 +17,21 @@
             android:src="@color/darkGray"
             android:scaleType="centerCrop"
             android:tint="@color/grayMask"
-            android:id="@+id/mobile_background_img" />
+            android:id="@+id/questName" />
         <LinearLayout
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_height="70dp"
             android:paddingStart="10dp"
             android:paddingEnd="7dp"
-            android:id="@+id/quest_text_layout"
+            android:id="@+id/quest_image_layout"
             android:layout_gravity="center_vertical"
             android:baselineAligned="true"
             android:clickable="true">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/mobile_restaurant_icon"
+                android:id="@+id/restaurantIcon"
                 android:padding="0dp"
                 android:src="@android:color/white"
                 android:clickable="true"
@@ -79,21 +79,21 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignBottom="@+id/title" />
                 <ImageView
-                    android:id="@id/mobile_method_icon"
+                    android:id="@id/isDelivery"
                     android:layout_alignBottom="@id/restaurantName"
                     android:layout_alignParentEnd="true"
                     android:layout_height="15dp"
                     android:layout_marginBottom="2dp"
                     android:layout_width="15dp"
-                    android:src="@drawable/duo_quest_white" />
+                    android:src="@drawable/warning_icon" />
                 <ImageView
-                    android:id="@id/mobile_quest_icon"
-                    android:layout_alignBottom="@id/mobile_method_icon"
+                    android:id="@id/partySize"
+                    android:layout_alignBottom="@id/isDelivery"
                     android:layout_height="15dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_toStartOf="@id/mobile_method_icon"
+                    android:layout_toStartOf="@id/isDelivery"
                     android:layout_width="15dp"
-                    android:src="@drawable/duo_quest_white" />
+                    android:src="@drawable/warning_icon" />
 
 
             </RelativeLayout>
@@ -107,6 +107,7 @@
         android:textColor="@color/graySideBar"
         android:background="@color/white"
         android:textSize="14sp"
+        android:autoLink="all"
         android:text="@string/coupon_info_test"
         android:singleLine="false"
         android:textAlignment="center"
