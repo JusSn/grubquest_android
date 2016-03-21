@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
@@ -27,7 +27,7 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
 
     public final TextView questTimer, description;
     public final ImageView chestIcon;
-    public LinearLayout questImageLayout;
+    public RelativeLayout restOfferLayout;
 
     private boolean expanded = false;
 
@@ -47,11 +47,11 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         description = (TextView) dataView.findViewById(R.id.description);
 
         chestIcon = (ImageView) dataView.findViewById(R.id.chest_icon);
-        questImageLayout = (LinearLayout) dataView.findViewById(R.id.quest_image_layout);
+        restOfferLayout = (RelativeLayout) dataView.findViewById(R.id.rest_offer_layout);
 
         progressListView = (ListView) dataView.findViewById(R.id.progress_list);
 
-        questImageLayout.setOnClickListener(new View.OnClickListener() {
+        restOfferLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewGroup.LayoutParams params = description.getLayoutParams();

@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -43,7 +45,6 @@ public class LootFragment extends Fragment {
     private ViewGroup container;
 
     private PopupWindow locTurnOnPopup;
-    //    private PopupWindow deleteWarnPopup;
 
     private ArrayList<Loot> items = new ArrayList<>();
     private Set<String> completedQuests = new HashSet<>();
@@ -87,8 +88,7 @@ public class LootFragment extends Fragment {
                 if (complete) {
                     completedQuests.add(dataSnapshot.getKey());
                     refreshView(lootRecyclerView, allQuestsRef);
-                }
-                else {
+                } else {
                     completedQuests.remove(dataSnapshot.getKey());
                     refreshView(lootRecyclerView, allQuestsRef);
                 }
@@ -102,20 +102,14 @@ public class LootFragment extends Fragment {
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {}
-        });
-
-        final SwipeRefreshLayout lootSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.loot_swipe_layout);
-        lootSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshView(lootRecyclerView, allQuestsRef);
-                lootSwipeLayout.setRefreshing(false);
+            public void onCancelled(FirebaseError firebaseError) {
             }
         });
+
         return view;
     }
 
@@ -174,8 +168,13 @@ public class LootFragment extends Fragment {
         public void onBindViewHolder(LootViewHolder holder, int position) {
             final Loot loot = items.get(position);
 
-            for (Map.Entry pair : holder.textViewMap.entrySet())
-                ((TextView)pair.getValue()).setText(loot.stringMap.get(pair.getKey()));
+            for (Map.Entry pair : holder.textViewMap.entrySet()) {
+                TextView t = (TextView) pair.getValue();
+                if (t != null) {
+                    t.setText(Html.fromHtml(loot.stringMap.get(pair.getKey())));
+                    t.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
 
             for (Map.Entry pair : holder.imageViewMap.entrySet()) {
                 String name = loot.stringMap.get(pair.getKey());
@@ -249,7 +248,7 @@ public class LootFragment extends Fragment {
                         });
 
                         ImageView coupon_image = (ImageView) layout.findViewById(R.id.coupon_image);
-                        coupon_image.setImageResource(getDrawable(loot.stringMap.get("emailCoupon")));
+                        coupon_image.setImageResource(getDrawable(loot.stringMap.get("realCoupon")));
                     }
                 }
             });

@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class Loot {
     public Map<String, String> stringMap = new HashMap<>();
-    private String shortName, questName;
     public long expirationTime;
 
     public Loot(DataSnapshot snapshot) {
@@ -18,15 +17,26 @@ public class Loot {
             if (child.getValue() instanceof String)
                 stringMap.put(child.getKey(), child.getValue(String.class));
 
-        shortName = stringMap.get("restaurantName");
-        questName = snapshot.getKey();
+        String shortName = stringMap.get("restaurantCodeName");
 
         if (shortName != null) {
             shortName = shortName.replace(" ", "_").toLowerCase();
             stringMap.put("backgroundImg", shortName + "_loot");
         }
-        stringMap.put("questName",questName);
+
         expirationTime = (long) snapshot.child("expirationTime").getValue();
+
+        stringMap.put("name", stringMap.get("name").toLowerCase());
+        stringMap.put("realCoupon", stringMap.get("name") + "_real_loot");
+
+        boolean isDelivery = snapshot.child("isDelivery").getValue(Boolean.class);
+        if (isDelivery)
+            stringMap.put("isDelivery", "delivery_white");
+        else
+            stringMap.put("isDelivery", "instore_white");
+
+        snapshot = snapshot.child("completionParams");
+        stringMap.put("partySize", "ic_" + String.valueOf(snapshot.child("partySize").getValue(Long.class)) + "_white");
     }
 
 //    public String getResourceFromFirebase(String fullPath) {

@@ -61,14 +61,14 @@ public class Quest {
                 break;
         }
     }
-    public String getResourceFromFirebase(String fullPath) {
-        if (fullPath != null) {
-            String[] array = fullPath.split(Pattern.quote("/"));
-            String answer = array[array.length - 1];
-            array = answer.split(Pattern.quote("."));
-            answer = array[0];
-            return answer;
-        }
-        return null;
-    }
+//    public String getResourceFromFirebase(String fullPath) {
+//        if (fullPath != null) {
+//            String[] array = fullPath.split(Pattern.quote("/"));
+//            String answer = array[array.length - 1];
+//            array = answer.split(Pattern.quote("."));
+//            answer = array[0];
+//            return answer;
+//        }
+//        return null;
+//    }
 }

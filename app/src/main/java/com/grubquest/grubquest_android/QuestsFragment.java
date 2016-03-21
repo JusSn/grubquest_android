@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -185,8 +186,11 @@ public class QuestsFragment extends Fragment {
             // TODO: 3/19/16 URGENT: QUEST PROGRESS DISPLAY
             for (Map.Entry pair : holder.textViewMap.entrySet()) {
                 TextView t = (TextView) pair.getValue();
-                if (t != null)
+                if (t != null) {
                     t.setText(Html.fromHtml(quest.stringMap.get(pair.getKey())));
+                    t.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+
             }
 
             for (Map.Entry pair : holder.imageViewMap.entrySet()) {
@@ -213,7 +217,6 @@ public class QuestsFragment extends Fragment {
 
             ProgressListAdapter adapter = new ProgressListAdapter(getContext(), quest.progressList);
             holder.progressListView.setAdapter(adapter);
-
 
             holder.chestIcon.setOnClickListener(new View.OnClickListener() {
                 @Override

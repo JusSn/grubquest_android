@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.grubquest.grubquest_android.R;
@@ -21,7 +22,7 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
     public Map<String, TextView> textViewMap = new HashMap<>();
 
     public final Button redeemButton;
-    public final LinearLayout offerTextLayout;
+    public final RelativeLayout lootTopLayout;
     public final TextView couponTimer;
 
     private boolean expanded = false;
@@ -29,10 +30,10 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
     public LootViewHolder(final View dataView) {
         super(dataView);
 
-        imageViewMap.put("mobile_restaurant_icon", (ImageView) dataView.findViewById(R.id.restaurantIcon));
+        imageViewMap.put("restaurantCodeName", (ImageView) dataView.findViewById(R.id.restaurantIcon));
         imageViewMap.put("backgroundImg", (ImageView) dataView.findViewById(R.id.backgroundImg));
-        imageViewMap.put("mobile_method_icon", (ImageView) dataView.findViewById(R.id.isDelivery));
-        imageViewMap.put("mobile_quest_icon", (ImageView) dataView.findViewById(R.id.partySize));
+        imageViewMap.put("isDelivery", (ImageView) dataView.findViewById(R.id.isDelivery));
+        imageViewMap.put("partySize", (ImageView) dataView.findViewById(R.id.partySize));
 
         textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
         textViewMap.put("frontDescription", (TextView) dataView.findViewById(R.id.frontDescription));
@@ -41,10 +42,10 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
 
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
-        offerTextLayout = (LinearLayout) dataView.findViewById(R.id.offertext_layout);
+        lootTopLayout = (RelativeLayout) dataView.findViewById(R.id.loot_top_layout);
 
-        final TextView offerInfo = textViewMap.get("description");
-        offerTextLayout.setOnClickListener(new View.OnClickListener() {
+        final TextView offerInfo = textViewMap.get("lootDescription");
+        lootTopLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
@@ -59,18 +60,6 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
-
-        offerInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
-                params.height = 0;
-                offerInfo.setLayoutParams(params);
-                expanded = false;
-            }
-        });
-
-
     }
     public void startCardTimer(long expireTime) {
         new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
