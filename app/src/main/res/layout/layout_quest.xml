@@ -45,7 +45,10 @@
                 android:clickable="true"
                 android:paddingStart="10dp"
                 android:layout_margin="0dp"
-                android:layout_gravity="right">
+                android:layout_gravity="right"
+                android:focusable="true"
+                android:contextClickable="true"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@id/time_remain_textview"
@@ -55,7 +58,8 @@
                     android:text="@string/test_time"
                     android:textColor="@android:color/white"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignBottom="@+id/title" />
+                    android:layout_alignBottom="@+id/title"
+                    android:clickable="false" />
                 <ImageView
                     android:id="@id/isDelivery"
                     android:layout_alignBottom="@id/restaurantName"
@@ -86,7 +90,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_toLeftOf="@id/partySize"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:textIsSelectable="false" />
                 <TextView
                     android:singleLine="true"
                     android:clickable="true"
@@ -101,7 +107,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_toLeftOf="@id/time_remain_textview"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:textIsSelectable="false"
+                    android:focusable="false" />
 
 
             </RelativeLayout>

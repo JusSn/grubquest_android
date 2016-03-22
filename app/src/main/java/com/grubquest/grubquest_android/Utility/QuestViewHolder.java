@@ -39,9 +39,12 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         imageViewMap.put("partySize", (ImageView) dataView.findViewById(R.id.partySize));
         imageViewMap.put("name", (ImageView) dataView.findViewById(R.id.questName));
 
-        textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
+        final TextView restaurantNameTextView = (TextView) dataView.findViewById(R.id.restaurantName);
+        final TextView titleView = (TextView) dataView.findViewById(R.id.title);
+
+        textViewMap.put("restaurantName", restaurantNameTextView);
         textViewMap.put("description", (TextView) dataView.findViewById(R.id.description));
-        textViewMap.put("title", (TextView) dataView.findViewById(R.id.title));
+        textViewMap.put("title", titleView);
 
         questTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
         description = (TextView) dataView.findViewById(R.id.description);
@@ -54,20 +57,39 @@ public class QuestViewHolder extends RecyclerView.ViewHolder {
         restOfferLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = description.getLayoutParams();
-                if (!expanded) {
-                    expanded = true;
-
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    description.setLayoutParams(params);
-                } else {
-                    params.height = 0;
-                    description.setLayoutParams(params);
-                    expanded = false;
-                }
+                expandViewHolder();
             }
         });
+
+        restaurantNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandViewHolder();
+            }
+        });
+
+        titleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandViewHolder();
+            }
+        });
+
     }
+    private void expandViewHolder() {
+        ViewGroup.LayoutParams params = description.getLayoutParams();
+        if (!expanded) {
+            expanded = true;
+
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            description.setLayoutParams(params);
+        } else {
+            params.height = 0;
+            description.setLayoutParams(params);
+            expanded = false;
+        }
+    }
+
     public void startCardTimer(long expireTime) {
 
         new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time

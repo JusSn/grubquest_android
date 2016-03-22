@@ -24,6 +24,7 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
     public final Button redeemButton;
     public final RelativeLayout lootTopLayout;
     public final TextView couponTimer;
+    final TextView offerInfo;
 
     private boolean expanded = false;
 
@@ -35,32 +36,46 @@ public class LootViewHolder extends RecyclerView.ViewHolder {
         imageViewMap.put("isDelivery", (ImageView) dataView.findViewById(R.id.isDelivery));
         imageViewMap.put("partySize", (ImageView) dataView.findViewById(R.id.partySize));
 
-        textViewMap.put("restaurantName", (TextView) dataView.findViewById(R.id.restaurantName));
-        textViewMap.put("frontDescription", (TextView) dataView.findViewById(R.id.frontDescription));
+        final TextView restaurantNameTextView = (TextView) dataView.findViewById(R.id.restaurantName);
+        final TextView frontDescriptionTextView = (TextView) dataView.findViewById(R.id.frontDescription);
+        offerInfo = (TextView) dataView.findViewById(R.id.description);
+
+        textViewMap.put("restaurantName", restaurantNameTextView);
+        textViewMap.put("frontDescription", frontDescriptionTextView);
         //TODO: change this description to match the coupon, nOT QUEST description once that is avail on FB
-        textViewMap.put("lootDescription", (TextView) dataView.findViewById(R.id.description));
+        textViewMap.put("lootDescription", offerInfo);
         couponTimer = (TextView) dataView.findViewById(R.id.time_remain_textview);
 
         redeemButton = (Button) dataView.findViewById(R.id.view_reward_button);
         lootTopLayout = (RelativeLayout) dataView.findViewById(R.id.loot_top_layout);
 
-        final TextView offerInfo = textViewMap.get("lootDescription");
         lootTopLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
-                if (!expanded) {
-                    expanded = true;
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    offerInfo.setLayoutParams(params);
-                } else {
-                    params.height = 0;
-                    offerInfo.setLayoutParams(params);
-                    expanded = false;
-                }
+                expandInfoView();
+            }
+        });
+
+        frontDescriptionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandInfoView();
             }
         });
     }
+    private void expandInfoView() {
+        ViewGroup.LayoutParams params = offerInfo.getLayoutParams();
+        if (!expanded) {
+            expanded = true;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            offerInfo.setLayoutParams(params);
+        } else {
+            params.height = 0;
+            offerInfo.setLayoutParams(params);
+            expanded = false;
+        }
+    }
+
     public void startCardTimer(long expireTime) {
         new CountDownTimer(expireTime, 1000) { // adjust the milli seconds here depending on coupon expiration time
             public void onTick(long millisUntilFinished) {
