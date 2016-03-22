@@ -10,7 +10,7 @@
     <string name="expired">EXPIRED</string>
     <string name="grubquest_logo">The Grubquest Logo</string>
     <string name="karmicdemon">KarmicDemon</string>
-    <string name="invalid_user_pass">Invalid username/password combination</string>
+    <string name="invalid_user_pass">Invalid username/password combination.\nNeed an account? Tap the logo!</string>
     <string name="list_view_goes_here">List View Goes Here</string>
     <string name="login_error">Invalid username/password combination</string>
     <string name="loot">Loot</string>

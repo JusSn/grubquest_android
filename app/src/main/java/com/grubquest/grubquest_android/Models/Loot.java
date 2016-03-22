@@ -31,12 +31,12 @@ public class Loot {
 
         boolean isDelivery = snapshot.child("isDelivery").getValue(Boolean.class);
         if (isDelivery)
-            stringMap.put("isDelivery", "delivery_white");
+            stringMap.put("isDelivery", "delivery_black");
         else
-            stringMap.put("isDelivery", "instore_white");
+            stringMap.put("isDelivery", "instore_black");
 
         snapshot = snapshot.child("completionParams");
-        stringMap.put("partySize", "ic_" + String.valueOf(snapshot.child("partySize").getValue(Long.class)) + "_white");
+        stringMap.put("partySize", "ic_" + String.valueOf(snapshot.child("partySize").getValue(Long.class)) + "_black");
     }
 
 //    public String getResourceFromFirebase(String fullPath) {

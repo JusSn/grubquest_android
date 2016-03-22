@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="#FFFFFF"
-                android:text="@string/login_error"
+                android:text="@string/invalid_user_pass"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="7dp" />
 

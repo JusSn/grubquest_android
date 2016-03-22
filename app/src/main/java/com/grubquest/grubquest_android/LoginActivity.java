@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(next);
         }
 
+
         final Button login_button = (Button) findViewById(R.id.login_button);
         final EditText password = (EditText) findViewById(R.id.password_edittext);
         final EditText username = (EditText) findViewById(R.id.username_edittext);
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.grubquest.gg")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GQConstants.WEBSITE + "/#/signup")));
             }
         });
 

@@ -18,8 +18,8 @@ android {
         applicationId "com.grubquest.grubquest_android"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 4g
+        versionName "1.0.3"
 
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true

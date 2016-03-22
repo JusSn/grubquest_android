@@ -177,16 +177,10 @@ public class LootFragment extends Fragment {
             }
 
             for (Map.Entry pair : holder.imageViewMap.entrySet()) {
+                ImageView i = (ImageView) pair.getValue();
                 String name = loot.stringMap.get(pair.getKey());
-                if (name != null && name.endsWith("white")) {
-                    Drawable d = getResources().getDrawable(getDrawable(name));
-                    if (d != null) {
-                        d.setColorFilter(GQConstants.COLORFILTER_NEGATIVE);
-                        ((ImageView) pair.getValue()).setImageDrawable(d);
-                    }
-                }
-                else
-                    ((ImageView) pair.getValue()).setImageResource(getDrawable(name));
+                if (name != null && i != null)
+                    i.setImageResource(getDrawable(name));
             }
             //TODO: for some reason timer is being set across all cards when only the last loot had a valid expiration date, not sure if I'm going insane. Maybe move startTimer() to this class instead of viewHolder
             long expireTimeLeft = loot.expirationTime - System.currentTimeMillis();
