@@ -199,7 +199,8 @@ public class LootFragment extends Fragment {
                     getString(R.string.loot_expire_soon),
                     restName,
                     R.drawable.loot_notifications,
-                    expireTimeLeft * 3 / 4); // 25% time left
+                    // TODO: 3/21/16 Need to figure out a better way to fire notifications here. This is really bad
+                    expireTimeLeft - GQConstants.DAY / 2);
 
             holder.redeemButton.setOnClickListener(new View.OnClickListener() {
                 @Override

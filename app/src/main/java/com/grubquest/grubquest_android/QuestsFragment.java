@@ -211,7 +211,7 @@ public class QuestsFragment extends Fragment {
                     getString(R.string.quest_expire_soon),
                     restName,
                     R.drawable.quest_notifications,
-                    GQConstants.DAY * 3 / 4); //three days prior to quest expiration
+                   expireTimeLeft - GQConstants.DAY / 2); //three days prior to quest expiration
 
             /** Set current quest progress**/
 
