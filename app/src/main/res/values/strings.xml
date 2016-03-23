@@ -23,7 +23,7 @@
     <string name="shared_pref_file">com.grubquest.grubquest.data</string>
     <string name="username">Username</string>
     <string name="text_Login">Login</string>
-    <string name="text_Username">Username</string>
+    <string name="text_Username">Email</string>
     <string name="text_Password">Password</string>
     <string name="warning">Warning</string>
 
@@ -51,6 +51,7 @@
     <string name="wins">STAT</string>
     <string name="close">Close</string>
     <string name="quest_expire_soon">Quest expiring soon!</string>
+    <string name="new_quests">New quests available at grubquest.gg!</string>
     <!--arrays-->
     <string-array name="nav_array">
         <item>Website</item>

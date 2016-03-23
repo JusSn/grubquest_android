@@ -3,6 +3,7 @@ package com.grubquest.grubquest_android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTabHost;
@@ -69,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
         tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
         tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tab_indicator_ab_tabhost_background);
 
+
         /** Nav Drawer Stuff **/
         ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<>();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,6 +91,14 @@ public class HomeActivity extends AppCompatActivity {
                 new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         drawerList.setAdapter(adapter);
         drawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+        ImageView optionsImg = (ImageView) findViewById(R.id.options_img);
+        optionsImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(drawerRel);
+            }
+        });
 
         GetRequest g = new GetRequest();
         g.execute();

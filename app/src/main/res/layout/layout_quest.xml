@@ -145,7 +145,7 @@
             android:src="@drawable/closed_chest"
             android:id="@+id/chest_icon"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/red_round_pressable"
+            android:background="@drawable/red_rounded_pressable"
             android:clickable="true"
             android:scaleType="fitCenter"
             android:layout_centerVertical="true"
